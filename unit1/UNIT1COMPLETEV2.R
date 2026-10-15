@@ -39,7 +39,9 @@ weighted_mean <- function(values, weights) {
 }
 ##QUADRATIC MEAN-------------------------------------------------------
 
- sqrt(sum((error^2) * frequency) / total_n)
+ quadratic_mean <- function(data){  
+    return (sqrt(sum((data^2)) / data.length))
+ } 
 
 ##QUADRATIC MEAN GROUPED-----------------------------------------------------
 quadratic_mean_grouped <- function(values, frequencies) {
@@ -47,11 +49,11 @@ quadratic_mean_grouped <- function(values, frequencies) {
   for (i in seq_along(values)) {
     total <- total + values[i]^2 * frequencies[i]
   }
-  sqrt(total / sum(frequencies))
+  sqrt(total / sum(frequencies))# sum(freqs) == N
 }
 ##MODE VALUE----------------------------------------------------------------
 mode_value <- function(data) {
-  table <- table(x)
+  table <- table(data)
   as.numeric(names(table)[table == max(table)])
 }
 ##MEDIAN VALUE--------------------------------------------------------------
