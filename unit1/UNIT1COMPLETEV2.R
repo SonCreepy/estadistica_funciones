@@ -40,7 +40,7 @@ weighted_mean <- function(values, weights) {
 ##QUADRATIC MEAN-------------------------------------------------------
 
  quadratic_mean <- function(data){  
-    return (sqrt(sum((data^2)) / data.length))
+    return (sqrt(sum((data^2)) / length(data)))
  } 
 
 ##QUADRATIC MEAN GROUPED-----------------------------------------------------
@@ -89,31 +89,16 @@ mean_deviation <- function(data) {
 }
 ##MEAN SQUARED ERROR-----------------------------------------------------------
 mean_squared_error <- function(data, ref_point) {
-  mse_mean <- sum((data - ref_point)^2) / data.length
+  mse_mean <- sum((data - ref_point)^2) / length(data)
 }
 ##VARIANCE-------------------------------------------------------------------
-variance <- function(data) {
+variance <- function(data) { # var() from R is quasi variance
   n <- length(data)
-  variance <- var(data)*((n-1)/n)
+  (var(data) * ((n-1) / n))
 }
 ##STANDARD DEVIATION---------------------------------------------------------
 standard_deviation <- function(data) {
   sqrt(variance(data))
-}
-##SAMPLE QUASIVARIANCE--------------------------------------------------------
-sample_quasi_variance <- function(data) {
-  absolute_freqs <- absolute_frequency(data)
-  values <- as.numeric(names(absolute_freqs))
-  sample_mean <- unname(arithmetic_mean(data))
-  total <- 0
-  for (i in seq_along(values)) {
-    total <- total + (values[i] - sample_mean)^2 * absolute_freqs[[i]]
-  }
-  total / (length(data) - 1)
-}
-##QUASI VARIANCE FROM SAMPLE VARIANCE------------------------------------------
-sample_quasi_variance_from_sample_variance <- function(sample_variance_value, sample_size) {
-  sample_size / (sample_size - 1) * sample_variance_value
 }
 ##PEARSON COEFFICIENT OF VARIATION---------------------------------------------
 pearson_coefficient_of_variation <- function(standard_deviation_value, mean_value) {
