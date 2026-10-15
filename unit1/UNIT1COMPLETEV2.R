@@ -60,19 +60,12 @@ mode_value <- function(data) {
 median_value <- function(data) {
   quantile(data, 0.5)
 }
-##QUANTILE-----------------------------------------------------------------
-quantile <- function(data, proportion) {
-  sorted_data <- sort(data)
-  position <- round(proportion * length(data), 10)
-  integer_part <- floor(position)
-  decimal_part <- position - integer_part
-  if (decimal_part == 0) {
-    (sorted_data[integer_part] + sorted_data[integer_part + 1]) / 2
-  } else {
-    sorted_data[integer_part + 1]
-  }
-}
-##PERCENTILE---------------------------------------------------------------
+##QUANTILE & PERCENTILE ----------------------------------------------------
+data <- c(2, 5, 3, 4, 7, 0, 11, 2, 3, 8)
+
+quartiles <- quantile(data, probs = c(0.25, 0.50, 0.75))
+print("quartiles:")
+print(quartiles)
 percentile <- function(data, percentile_number) {
   quantile(data, percentile_number / 100)
 }
@@ -80,7 +73,7 @@ percentile <- function(data, percentile_number) {
 deviation <- function(value, parameter) {
   abs(value - parameter)
 }
-##MEAN DEVIATION CONCERNING AVERAGE----------------------------------------------
+##MEAN DEVIATION CONCERNING AVERAGE --------------------------------------------
 mean_deviation_concerning_average <- function(data, parameter) {
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
@@ -95,15 +88,9 @@ mean_deviation <- function(data) {
   mean_deviation_concerning_average(data, unname(arithmetic_mean(data)))
 }
 ##MEAN SQUARED ERROR-----------------------------------------------------------
-mean_squared_error <- function(data, parameter) {
-  mse_mean <- sum((x - mean)^2) / n
+mean_squared_error <- function(data, ref_point) {
+  mse_mean <- sum((data - ref_point)^2) / data.length
 }
-##MEAN SQUARED ERROR WITH MEDIAN-----------------------------------------------
-mean_squared_error <- function(data, parameter) {
-  mse_median <- sum((x - median_value)^2) / n
-}
-
-
 ##VARIANCE-------------------------------------------------------------------
 variance <- function(data) {
   n <- length(data)
