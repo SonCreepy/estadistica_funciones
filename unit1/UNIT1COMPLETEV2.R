@@ -101,37 +101,18 @@ standard_deviation <- function(data) {
   sqrt(variance(data))
 }
 ##PEARSON COEFFICIENT OF VARIATION---------------------------------------------
-pearson_coefficient_of_variation <- function(standard_deviation_value, mean_value) {
-  standard_deviation_value / abs(mean_value)
+pearson_coefficient_of_variation <- function(data) {
+  standard_deviation((data)) / abs(mean(data))
 }
 ##MOMENT RESPECT TO POINT-------------------------------------------------------
-moment_with_respect_to_point <- function(data, order, point) {
+# If point == 0, calculating ORDINARY MOMENT
+# If point == mean(data) calculating CENTRAL MOMENT
+moment_with_respect_to_point <- function(data, order, point){ 
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
   total <- 0
   for (i in seq_along(values)) {
     total <- total + absolute_freqs[[i]] * (values[i] - point)^order
-  }
-  total / length(data)
-}
-##ORDINARY MOMENT---------------------------------------------------------------
-ordinary_moment <- function(data, order) {
-  absolute_freqs <- absolute_frequency(data)
-  values <- as.numeric(names(absolute_freqs))
-  total <- 0
-  for (i in seq_along(values)) {
-    total <- total + absolute_freqs[[i]] * values[i]^order
-  }
-  total / length(data)
-}
-##CENTRAL MOMENT------------------------------------------------------------------
-central_moment <- function(data, order) {
-  absolute_freqs <- absolute_frequency(data)
-  values <- as.numeric(names(absolute_freqs))
-  mean_value <- unname(arithmetic_mean(data))
-  total <- 0
-  for (i in seq_along(values)) {
-    total <- total + absolute_freqs[[i]] * (values[i] - mean_value)^order
   }
   total / length(data)
 }
