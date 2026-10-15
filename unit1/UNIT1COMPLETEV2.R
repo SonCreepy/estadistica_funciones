@@ -118,13 +118,14 @@ moment_with_respect_to_point <- function(data, order, point){
 }
 ##PEARSON SKEWNESS COEFFICIENT-----------------------------------------------
 pearson_skewness_coefficient <- function(data) {
-  (unname(arithmetic_mean(data)) - mode_value(data)) / standard_deviation(data)
+  (mean(data) - mode_value(data)) / standard_deviation(data)
 }
 ##FISHER SKEWNESS COEFFICIENT--------------------------------------------------
 fisher_skewness_coefficient <- function(data) {
-  central_moment(data, 3) / standard_deviation(data)^3
+  moment_with_respect_to_point(data,3,mean(data)) / standard_deviation(data)^3
 }
 ##FISHER KURTOSIS COEFFICIENT-----------------------------------------------
 fisher_kurtosis_coefficient <- function(data) {
-  central_moment(data, 4) / standard_deviation(data)^4 - 3
+  moment_with_respect_to_point(data,4,mean(data)) / 
+  standard_deviation(data)^4 - 3
 }
