@@ -1,5 +1,4 @@
-source('/Users/manu/Documents/SOFTWARE ENGINEERING/2/A/STATISTICAL METHODS/FUNCTIONS IN R/TOPIC1.R')
-
+#JOINT ABSOLUTE FREQUENCY ---------------------------------
 joint_absolute_frequency <- function(data_x, data_y) {
   x_modalities <- sort(unique(data_x))
   y_modalities <- sort(unique(data_y))
