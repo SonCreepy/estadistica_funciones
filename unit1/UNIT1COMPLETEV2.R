@@ -37,6 +37,21 @@ weighted_mean <- function(values, weights) {
   }
   numerator / sum(weights)
 }
+##PIE CHART AND BAR PLOT----------------------------------
+data <- c(1500, 750, 1000, 500, 250)
+
+names(data) <- c("Chemistry", "Mathematics", "Physiscs", "Biology", "Geology")
+
+barplot(data,
+        main = "Students enrolled by Section",
+        ylab = "Number of Students",
+        col ="steelblue")
+
+pie(data,
+    main = "Students Enrolled by Section",
+    col = c("red", "blue", "green", "purple", "grey"))
+
+
 ##QUADRATIC MEAN-------------------------------------------------------
 
  quadratic_mean <- function(data){  
