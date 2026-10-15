@@ -9,8 +9,8 @@ absolute_frequency <- function(data) {
   counts
 }
 ##RELATIVE FREQUENCY-----------------------------------------------------
-relative_frequency <- function(absolute_freq, totalN) {
-  absolute_freq / totalN
+relative_frequency <- function(absolute_freq, total_n) {
+  absolute_freq / total_n
 }
 ##CUMULATIVE ABSOLUTE FREQUENCY-------------------------------------------
 cumulative_absolute_frequency <- function(absolute_freqs) {
@@ -23,8 +23,8 @@ cumulative_absolute_frequency <- function(absolute_freqs) {
   cumulative
 }
 ##CUMULATIVE RELATIVE FREQUENCY-----------------------------------------------
-cumulative_relative_frequency <- function(cumulative_absolute_freq, totalN) {
-  cumulative_absolute_freq / totalN
+cumulative_relative_frequency <- function(cumulative_absolute_freq, total_n) {
+  cumulative_absolute_freq / total_n
 }
 ##ARITHMETIC MEAN------------------------------------------------------------
 mean(data)
@@ -45,7 +45,7 @@ names(data) <- c("Chemistry", "Mathematics", "Physiscs", "Biology", "Geology")
 barplot(data,
         main = "Students enrolled by Section",
         ylab = "Number of Students",
-        col ="steelblue")
+        col  =  "steelblue")
 
 pie(data,
     main = "Students Enrolled by Section",
@@ -53,18 +53,16 @@ pie(data,
 
 
 ##QUADRATIC MEAN-------------------------------------------------------
-
- quadratic_mean <- function(data){  
-    return (sqrt(sum((data^2)) / length(data)))
- } 
-
+quadratic_mean <- function(data) {
+  (sqrt(sum((data^2)) / length(data)))
+}
 ##QUADRATIC MEAN GROUPED-----------------------------------------------------
 quadratic_mean_grouped <- function(values, frequencies) {
   total <- 0
   for (i in seq_along(values)) {
     total <- total + values[i]^2 * frequencies[i]
   }
-  sqrt(total / sum(frequencies))# sum(freqs) == N
+  sqrt(total / sum(frequencies))
 }
 ##MODE VALUE----------------------------------------------------------------
 mode_value <- function(data) {
@@ -89,7 +87,7 @@ deviation <- function(value, parameter) {
   abs(value - parameter)
 }
 ##MEAN DEVIATION CONCERNING AVERAGE --------------------------------------------
-mean_deviation_concerning_average <- function(data, parameter) {
+mean_deviation_average <- function(data, parameter) {
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
   total <- 0
@@ -100,29 +98,29 @@ mean_deviation_concerning_average <- function(data, parameter) {
 }
 ##MEAN DEVIATION---------------------------------------------------------------
 mean_deviation <- function(data) {
-  mean_deviation_concerning_average(data, unname(arithmetic_mean(data)))
+  mean_deviation_average(data, unname(mean(data)))
 }
 ##MEAN SQUARED ERROR-----------------------------------------------------------
 mean_squared_error <- function(data, ref_point) {
-  mse_mean <- sum((data - ref_point)^2) / length(data)
+  sum((data - ref_point)^2) / length(data)
 }
 ##VARIANCE-------------------------------------------------------------------
 variance <- function(data) { # var() from R is quasi variance
   n <- length(data)
-  (var(data) * ((n-1) / n))
+  (var(data) * ((n - 1) / n))
 }
 ##STANDARD DEVIATION---------------------------------------------------------
 standard_deviation <- function(data) {
   sqrt(variance(data))
 }
 ##PEARSON COEFFICIENT OF VARIATION---------------------------------------------
-pearson_coefficient_of_variation <- function(data) {
+pearson_coeff_variation <- function(data) {
   standard_deviation((data)) / abs(mean(data))
 }
 ##MOMENT RESPECT TO POINT-------------------------------------------------------
 # If point == 0, calculating ORDINARY MOMENT
 # If point == mean(data) calculating CENTRAL MOMENT
-moment_with_respect_to_point <- function(data, order, point){ 
+moment_with_respect_to_point <- function(data, order, point) {
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
   total <- 0
@@ -137,10 +135,10 @@ pearson_skewness_coefficient <- function(data) {
 }
 ##FISHER SKEWNESS COEFFICIENT--------------------------------------------------
 fisher_skewness_coefficient <- function(data) {
-  moment_with_respect_to_point(data,3,mean(data)) / standard_deviation(data)^3
+  moment_with_respect_to_point(data,3 , mean(data)) / standard_deviation(data)^3
 }
 ##FISHER KURTOSIS COEFFICIENT-----------------------------------------------
 fisher_kurtosis_coefficient <- function(data) {
-  moment_with_respect_to_point(data,4,mean(data)) / 
+  moment_with_respect_to_point(data,4, mean(data)) /
   standard_deviation(data)^4 - 3
 }
