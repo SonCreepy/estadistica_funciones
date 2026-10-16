@@ -65,11 +65,12 @@ marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
 }
 
 marginal_relative_frequency_x <- function(joint_freqs, values_x) {
-  relative_frequency(marginal_absolute_frequency_x(joint_freqs, values_x), sum(joint_freqs))
+relative_frequency(marginal_absolute_frequency_x(joint_freqs, values_x),sum(joint_freqs))
 }
 
 marginal_relative_frequency_y <- function(joint_freqs, values_y) {
-  relative_frequency(marginal_absolute_frequency_y(joint_freqs, values_y), sum(joint_freqs))
+relative_frequency(marginal_absolute_frequency_y(joint_freqs, values_y),
+sum(joint_freqs))
 }
 
 bivariate_moment_with_respect_to_point <- function(joint_freqs, values_x, values_y, order_x, order_y, point_x, point_y) {
@@ -113,7 +114,7 @@ covariance_simple_table <- function(values_x, values_y, frequencies = rep(1, len
 }
 
 covariance_alternative_form_double_entry_table <- function(joint_freqs, values_x, values_y) {
-  bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 1) -
+    bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 1) -
     bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 0) * bivariate_ordinary_moment(joint_freqs, values_x, values_y, 0, 1)
 }
 
@@ -127,7 +128,7 @@ covariance_alternative_form_simple_table <- function(values_x, values_y, frequen
   total / sum(frequencies) - mean_x * mean_y
 }
 
-independence_characterisation <- function(joint_freqs, values_x, values_y) {
+independence_char <- function(joint_freqs, values_x, values_y) {
   joint_relative_freqs <- relative_frequency(joint_freqs, sum(joint_freqs))
   marginal_x <- marginal_relative_frequency_x(joint_freqs, values_x)
   marginal_y <- marginal_relative_frequency_y(joint_freqs, values_y)
@@ -140,13 +141,17 @@ independence_characterisation <- function(joint_freqs, values_x, values_y) {
   }
   TRUE
 }
+correlation_char <- function(joint_freqs,values_x,values_y) {
+   (independence_char(joint_freqs,values_x ,values_y ) || 
+   covariance_double_entry_table(joint_freqs ,values_x ,values_y) != 0)
+}
 
 correlation_coefficient <- function(joint_freqs, values_x, values_y) {
   covariance_double_entry_table(joint_freqs, values_x, values_y) /
     sqrt(bivariate_central_moment(joint_freqs, values_x, values_y, 2, 0) * bivariate_central_moment(joint_freqs, values_x, values_y, 0, 2))
 }
 
-functional_dependence_of_x_on_y <- function(joint_freqs) {
+funct_dependence_x_on_y <- function(joint_freqs) {
   for (j in seq_len(ncol(joint_freqs))) {
     if (sum(joint_freqs[, j] != 0) != 1) {
       return(FALSE)
@@ -155,7 +160,7 @@ functional_dependence_of_x_on_y <- function(joint_freqs) {
   TRUE
 }
 
-functional_dependence_of_y_on_x <- function(joint_freqs) {
+funct_dependence_y_on_x <- function(joint_freqs) {
   for (i in seq_len(nrow(joint_freqs))) {
     if (sum(joint_freqs[i, ] != 0) != 1) {
       return(FALSE)
@@ -182,15 +187,15 @@ residual_vector <- function(data_y, estimated_y) {
 }
 
 explained_variance <- function(data_y, estimated_y) {
-  coefficient_of_determination(data_y, estimated_y) * sample_variance(data_y)
+  coefficient_of_determination(data_y, estimated_y) * variance(data_y)
 }
 
 coefficient_of_determination <- function(data_y, estimated_y) {
-  1 - regression_mean_squared_error(data_y, estimated_y) / sample_variance(data_y)
+  1 - regression_mean_squared_error(data_y, estimated_y) / variance(data_y)
 }
 
 coefficient_of_determination_alternative_form <- function(data_y, estimated_y) {
-  explained_variance(data_y, estimated_y) / sample_variance(data_y)
+  explained_variance(data_y, estimated_y) / variance(data_y)
 }
 
 linear_fitting <- function(data_x, a, b) {
@@ -209,7 +214,7 @@ exponential_fitting <- function(data_x, a, b) {
   a * exp(b * data_x)
 }
 
-least_squares_objective_function <- function(data_y, estimated_y) {
+least_squares_obj_funct <- function(data_y, estimated_y) {
   total <- 0
   for (i in seq_along(data_y)) {
     total <- total + (data_y[i] - estimated_y[i])^2
@@ -217,8 +222,8 @@ least_squares_objective_function <- function(data_y, estimated_y) {
   total
 }
 
-linear_least_squares_objective_function <- function(data_x, data_y, a, b) {
-  least_squares_objective_function(data_y, linear_fitting(data_x, a, b))
+linear_least_squares_obj_funct <- function(data_x, data_y, a, b) {
+  least_squares_obj_funct(data_y, linear_fitting(data_x, a, b))
 }
 
 normal_equations_regression_line_y_on_x <- function(data_x, data_y) {
@@ -258,27 +263,27 @@ normal_equations_regression_line_x_on_y <- function(data_x, data_y) {
 }
 
 regression_slope_y_on_x <- function(data_x, data_y) {
-  covariance_simple_table(data_x, data_y) / sample_variance(data_x)
+  covariance_simple_table(data_x, data_y) / variance(data_x)
 }
 
 regression_intercept_y_on_x <- function(data_x, data_y) {
-  unname(arithmetic_mean(data_y)) - regression_slope_y_on_x(data_x, data_y) * unname(arithmetic_mean(data_x))
+  unname(mean(data_y)) - regression_slope_y_on_x(data_x, data_y) * unname(mean(data_x))
 }
 
 regression_slope_x_on_y <- function(data_x, data_y) {
-  covariance_simple_table(data_x, data_y) / sample_variance(data_y)
+  covariance_simple_table(data_x, data_y) / variance(data_y)
 }
 
 regression_intercept_x_on_y <- function(data_x, data_y) {
-  unname(arithmetic_mean(data_x)) - regression_slope_x_on_y(data_x, data_y) * unname(arithmetic_mean(data_y))
+  unname(mean(data_x)) - regression_slope_x_on_y(data_x, data_y) * unname(mean(data_y))
 }
 
 regression_line_y_on_x <- function(data_x, data_y, x) {
-  unname(arithmetic_mean(data_y)) + covariance_simple_table(data_x, data_y) / sample_variance(data_x) * (x - unname(arithmetic_mean(data_x)))
+  unname(mean(data_y)) + covariance_simple_table(data_x, data_y) / variance(data_x) * (x - unname(mean(data_x)))
 }
 
 regression_line_x_on_y <- function(data_x, data_y, y) {
-  unname(arithmetic_mean(data_x)) + covariance_simple_table(data_x, data_y) / sample_variance(data_y) * (y - unname(arithmetic_mean(data_y)))
+  unname(mean(data_x)) + covariance_simple_table(data_x, data_y) / variance(data_y) * (y - unname(mean(data_y)))
 }
 
 linear_correlation_coefficient <- function(data_x, data_y) {
