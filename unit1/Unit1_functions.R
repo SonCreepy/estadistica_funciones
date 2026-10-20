@@ -32,7 +32,7 @@ mean(data)
 arithmetic_mean <- function(data,freqs){
   r <- 0
   for(i in seq_along(data)){
-    r<- r + data[i]*freqs[i];
+    r <- r + data[i] * freqs[i];
   }
   r
 }
