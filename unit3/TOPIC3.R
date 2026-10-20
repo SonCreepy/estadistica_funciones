@@ -73,7 +73,7 @@ trend_line <- function(desest, start, frequency) { #start like c(1970,1) and fre
   lines(regL, col = 2)
 
  # invisible(list(model = model, trend = regL)) To not print the list on console
- # print(coef(model)[1], digits=x) for the intercept (starting point of the horizontal axis)
+ # print(coef(model)[1], digits=x) for the intercept (starting point of the horizontal axis) ; or [2] for slope of the model
 }
 
 
