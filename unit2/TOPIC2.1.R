@@ -123,7 +123,7 @@ bivariate_central_moment <- function(joint_freqs, values_x, values_y, order_x, o
   mean_y <- unname(weighted_mean(values_y, marginal_absolute_frequency_y(joint_freqs, values_y)))
   bivariate_moment_with_respect_to_point(joint_freqs, values_x, values_y, order_x, order_y, mean_x, mean_y)
 }
-
+# center_of_gravity = mean(x),mean(y)
 center_of_gravity <- function(joint_freqs, values_x, values_y) {
   c(x = bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 0),
     y = bivariate_ordinary_moment(joint_freqs, values_x, values_y, 0, 1))
