@@ -55,18 +55,25 @@ Deseasonalize <- function(uk, seasonalN) { #To graph it, plot(uk), lines (Deseas
 }
 
 # ###############################################
-# Calculate a linear regression of the deseasonalized # ###############################################
-# This puts a vector 1:n in xx , where n is the
-length of uk
-xx <- seq _ along ( uk )
-# Linear regression
-model <- lm( desestM ~ xx )
-# Calculate the predicted values of the line
-regL <- ts( predict .lm( model ) , start =c(1969 , 1) ,
-frequency =4)
-# Plot the deseasonalized series with the line
-plot ( desestM )
-lines ( regL , col =2)
+# Calculate a linear regression of the deseasonalized 
+# ###############################################
+# This puts a vector 1:n in xx , where n is the length of uk
+trend_line <- function(desest, start, frequency) { #start like c(1970,1) and frequency 4. desest is deseasonalized series
+  # Vector 1:n, where n is the length of the series
+  xx <- seq_along(desest)
+
+  # Linear regression
+  model <- lm(desest ~ xx)
+
+  # Predicted values of the line, as a time series
+  regL <- ts(predict.lm(model), start = start, frequency = frequency)
+
+  # Plot the deseasonalized series with the line
+  plot(desest)
+  lines(regL, col = 2)
+
+ # invisible(list(model = model, trend = regL)) To not print the list on console
+}
 
 data <- c(1.2 , 1.4 , 2.0 , 1.23 , 1.37 , 2.07 ,
 1.25 , 1.47 , 2.09)
