@@ -1,4 +1,5 @@
 ##ABSOLUTE FREQUENCY-------------------------------------------------------
+#Frequency table 
 absolute_frequency <- function(data) {
   modalities <- sort(unique(data))
   counts <- numeric(length(modalities))
@@ -13,6 +14,7 @@ relative_frequency <- function(absolute_freq, total_n) {
   absolute_freq / total_n
 }
 ##CUMULATIVE ABSOLUTE FREQUENCY-------------------------------------------
+#Cumsum table
 cumulative_absolute_frequency <- function(absolute_freqs) {
   cumulative <- numeric(length(absolute_freqs))
   total <- 0
