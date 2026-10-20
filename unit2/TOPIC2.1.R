@@ -411,3 +411,6 @@ mom_ord2 <- function(data_x, data_y, joint_freqs, r, s, a,b) {
 #central moment 11 = cov(x,y)- If cov(x,y) = 0, uncorrelated
 #ordinary moment 10 = mean_x
 #ordinary moment 01 = mean_y
+
+#Regression lines: y = y_mean + (Cov(x,y)/s2n(x) * (x-x_mean)
+#Regression lines: x = x_mean + (Cov(x,y)/s2n(Y) * (y-y_mean)
