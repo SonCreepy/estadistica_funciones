@@ -1,3 +1,4 @@
+library(tidyverse)
 #T * E * C * A
 
 #Moving average formula
