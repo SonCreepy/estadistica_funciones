@@ -73,13 +73,11 @@ trend_line <- function(desest, start, frequency) { #start like c(1970,1) and fre
   lines(regL, col = 2)
 
  # invisible(list(model = model, trend = regL)) To not print the list on console
+ # print(coef(model)[1], digits=x) for the intercept (starting point of the horizontal axis)
 }
 
-data <- c(1.2 , 1.4 , 2.0 , 1.23 , 1.37 , 2.07 ,
-1.25 , 1.47 , 2.09)
 
 # AUTOCORRELATION 
-frequency n
 autoCorrel <- function (data , n ) {
 # Remove the last n data points
 xx1 <- head (data , -n )
@@ -88,4 +86,4 @@ xx2 <- tail (data , -n )
 # correlation
 sqrt ( summary (lm( xx1 ~ xx2 ))$r . squared )
 }
-autoCorrel ( xx , 3)
+
