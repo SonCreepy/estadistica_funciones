@@ -65,12 +65,12 @@ marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
 }
 
 marginal_relative_frequency_x <- function(joint_freqs, values_x) {
-relative_frequency(marginal_absolute_frequency_x(joint_freqs, values_x),sum(joint_freqs))
+  relative_frequency(marginal_absolute_frequency_x(joint_freqs, values_x),sum(joint_freqs))
 }
 
 marginal_relative_frequency_y <- function(joint_freqs, values_y) {
-relative_frequency(marginal_absolute_frequency_y(joint_freqs, values_y),
-sum(joint_freqs))
+  relative_frequency(marginal_absolute_frequency_y(joint_freqs, values_y),
+                     sum(joint_freqs))
 }
 
 bivariate_moment_with_respect_to_point <- function(joint_freqs, values_x, values_y, order_x, order_y, point_x, point_y) {
@@ -114,7 +114,7 @@ covariance_simple_table <- function(values_x, values_y, frequencies = rep(1, len
 }
 
 covariance_alternative_form_double_entry_table <- function(joint_freqs, values_x, values_y) {
-    bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 1) -
+  bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 1) -
     bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 0) * bivariate_ordinary_moment(joint_freqs, values_x, values_y, 0, 1)
 }
 
@@ -142,14 +142,14 @@ independence_char <- function(joint_freqs, values_x, values_y) {
   TRUE
 }
 correlation_char <- function(joint_freqs,values_x,values_y) {
-   (independence_char(joint_freqs,values_x ,values_y ) || 
-   covariance_double_entry_table(joint_freqs ,values_x ,values_y) != 0)
+  (independence_char(joint_freqs,values_x ,values_y ) || 
+     covariance_double_entry_table(joint_freqs ,values_x ,values_y) != 0)
 }
 
 correlation_coefficient <- function(joint_freqs, values_x, values_y) {
   covariance_double_entry_table(joint_freqs, values_x, values_y) /
     sqrt(bivariate_central_moment(joint_freqs, values_x, values_y, 2, 0) *
-     bivariate_central_moment(joint_freqs, values_x, values_y, 0, 2))
+           bivariate_central_moment(joint_freqs, values_x, values_y, 0, 2))
 }
 
 funct_dependence_x_on_y <- function(joint_freqs) {
@@ -289,4 +289,49 @@ regression_line_x_on_y <- function(data_x, data_y, y) {
 
 linear_correlation_coefficient <- function(data_x, data_y) {
   covariance_simple_table(data_x, data_y) / (standard_deviation(data_x) * standard_deviation(data_y))
+}
+
+multiple_linear_fitting <- function(predictors_data, coefficients) {
+  estimated_y <- numeric(nrow(predictors_data))
+  for (i in seq_len(nrow(predictors_data))) {
+    estimated_y[i] <- coefficients[1]
+    for (j in seq_len(ncol(predictors_data))) {
+      estimated_y[i] <- estimated_y[i] + coefficients[j + 1] * predictors_data[i, j]
+    }
+  }
+  estimated_y
+}
+
+multiple_linear_least_squares_objective_function <- function(predictors_data, data_y, coefficients) {
+  least_squares_objective_function(data_y, multiple_linear_fitting(predictors_data, coefficients))
+}
+
+normal_equations_multiple_regression <- function(predictors_data, data_y) {
+  matrix_m <- design_matrix(predictors_data)
+  vector_y <- response_vector(data_y)
+  coefficients <- solve(t(matrix_m) %*% matrix_m, t(matrix_m) %*% vector_y)
+  names_coefficients <- paste0("a", seq_along(coefficients) - 1)
+  setNames(as.numeric(coefficients), names_coefficients)
+}
+
+least_squares_solution_multiple_regression <- function(predictors_data, data_y) {
+  matrix_m <- design_matrix(predictors_data)
+  vector_y <- response_vector(data_y)
+  coefficients <- solve(t(matrix_m) %*% matrix_m) %*% t(matrix_m) %*% vector_y
+  names_coefficients <- paste0("a", seq_along(coefficients) - 1)
+  setNames(as.numeric(coefficients), names_coefficients)
+}
+
+exponential_fitting_by_linearization <- function(data_x, data_y) {
+  log_data_y <- log(data_y)
+  intercept_a_capital <- regression_intercept_y_on_x(data_x, log_data_y)
+  c(A = intercept_a_capital,
+    a = exp(intercept_a_capital),
+    b = regression_slope_y_on_x(data_x, log_data_y))
+}
+
+hyperbolic_fitting_by_linearization <- function(data_x, data_y) {
+  inverse_data_y <- 1 / data_y
+  c(a = regression_intercept_y_on_x(data_x, inverse_data_y),
+    b = regression_slope_y_on_x(data_x, inverse_data_y))
 }
