@@ -35,12 +35,12 @@ EA <- function(uk, trend) {
 #Seasonal variation index to remove random component
 # Unnormalized Seasonal Component
 Unnormalized_Seasonal_Component <- function(EA, ncol) { #ncol is columns of EA
-  seasonalM <- colMeans ( matrix ( est_aleM , ncol, byrow = T ), na.rm= T ) 
+  seasonalM <- colMeans ( matrix ( EA , ncol, byrow = T ), na.rm= T ) 
 }
 
 # Normalize the Seasonal Component
 Normalized_Seasonal_Component <- function(seasonalM) { #ncol is columns of EA
-  seasonalN <- seasonalM/sum(seasonalM)
+  seasonalN <- seasonalM/mean(seasonalM)
 }
 
 # Random Component
@@ -73,7 +73,7 @@ trend_line <- function(desest, start, frequency) { #start like c(1970,1) and fre
   lines(regL, col = 2)
 
  # invisible(list(model = model, trend = regL)) To not print the list on console
- # print(coef(model)[1], digits=x) for the intercept (starting point of the horizontal axis) ; or [2] for slope of the model
+ # print(coef(model)[1], digits=x) for the intercept (vertical axis value when xx=0) ; or [2] for slope of the model
 }
 
 
@@ -84,6 +84,6 @@ xx1 <- head (data , -n )
 # Remove the first n data points
 xx2 <- tail (data , -n )
 # correlation
-sqrt ( summary (lm( xx1 ~ xx2 ))$r . squared )
+sqrt ( summary (lm( xx1 ~ xx2 ))$r.squared )
 }
 
