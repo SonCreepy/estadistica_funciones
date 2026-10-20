@@ -25,8 +25,10 @@ time_series <- function(xx, start, frequency) { #Start must be a c(year,1). plot
 # Multiplicative Decomposition
 # ##############################################
 # Seasonal (E) * Random Component (A) = X/TC :
-est_aleM <- uk / tend
-est_aleM
+EA <- function(uk, trend) {
+  Seasonal_Random <- uk/trend
+}
+
 
 # Unnormalized Seasonal Component
 est1M <- colMeans ( matrix ( est_aleM , ncol =4 , byrow = T ) ,
