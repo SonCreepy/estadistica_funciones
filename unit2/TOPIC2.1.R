@@ -376,3 +376,21 @@ hyperbolic_fitting_by_linearization <- function(data_x, data_y) {
   c(a = regression_intercept_y_on_x(data_x, inverse_data_y),
     b = regression_slope_y_on_x(data_x, inverse_data_y))
 }
+
+
+mom_ord2 <- function(data_x, data_y, joint_freqs, r, s, a,b) {
+  N <- sum(joint_freqs)
+  sum <- 0
+  for(i in seq_along(data_x)) {
+    for(j in seq_along(data_y)) {
+      sum <- sum + (data_x[i]-a)^r * (data_y[j]-b)^s * joint_freqs[i, j]/N
+    }
+    
+  }
+  
+  return (sum)
+}
+
+
+
+#For ordinary moments, a,b=0,0, for central moments, a,b=x_mean,y_mean
