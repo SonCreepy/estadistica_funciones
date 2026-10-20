@@ -45,19 +45,8 @@ weighted_mean <- function(values, weights) {
   numerator / sum(weights)
 }
 ##PIE CHART AND BAR PLOT----------------------------------
-data <- c(1500, 750, 1000, 500, 250)
-
-names(data) <- c("Chemistry", "Mathematics", "Physiscs", "Biology", "Geology")
-
-barplot(data,
-        main = "Students enrolled by Section",
-        ylab = "Number of Students",
-        col  =  "steelblue")
-
-pie(data,
-    main = "Students Enrolled by Section",
-    col = c("red", "blue", "green", "purple", "grey"))
-
+#barplot(data,main="TITLE",ylab="COLUMNS",col)
+#pie(data, main, col=c(1,2,3))
 
 ##QUADRATIC MEAN-------------------------------------------------------
 quadratic_mean <- function(data) {
@@ -72,12 +61,30 @@ quadratic_mean_grouped <- function(values, frequencies) {
   sqrt(total / sum(frequencies))
 }
 ##MODE VALUE----------------------------------------------------------------
-mode_value <- function(data) {
-  table <- table(data)
-  as.numeric(names(table)[table == max(table)])
+mode_value <- function(values, freqs) {
+  values[freqs == max(freqs)]
 }
+
 ##MEDIAN VALUE--------------------------------------------------------------
-median_value <- function(data) {
+median_value <- function(values, freqs) {
+  # Ordenar por valor
+  ord <- order(values)
+  values <- values[ord]
+  freqs <- freqs[ord]
+
+  # Frecuencia acumulada y posición central
+  cum_freq <- cumsum(freqs)
+  n <- sum(freqs)
+
+  # Mediana por posiciones (maneja n par e impar)
+  lower <- values[which(cum_freq >= floor((n + 1) / 2))[1]]
+  upper <- values[which(cum_freq >= ceiling((n + 1) / 2))[1]]
+
+  (lower + upper) / 2
+}
+
+##MEDIAN VALUE--------------------------------------------------------------
+median_valueU <- function(data) {
   quantile(data, 0.5)
 }
 ##QUANTILE & PERCENTILE ----------------------------------------------------
