@@ -1,3 +1,5 @@
+#T * E * C * A
+
 #Moving average formula
 moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, just use the stats:filter function
   if (order == 3) {
@@ -29,15 +31,17 @@ EA <- function(uk, trend) {
   Seasonal_Random <- uk/trend
 }
 
-
+#Seasonal variation index to remove random component
 # Unnormalized Seasonal Component
-est1M <- colMeans ( matrix ( est_aleM , ncol =4 , byrow = T ) ,
-na.rm= T )
-est1M
+Unnormalized_Seasonal_Component <- function(EA, ncol) { #ncol is columns of EA
+  seasonalM <- colMeans ( matrix ( est_aleM , ncol, byrow = T ), na.rm= T ) 
+}
 
 # Normalize the Seasonal Component
-estM <- est1M / mean ( est1M )
-estM
+Normalized_Seasonal_Component <- function(seasonalM) { #ncol is columns of EA
+  seasonalN <- seasonalM/sum(seasonalM)
+}
+
 # Random Component
 aleM <- est_aleM / estM
 aleM
