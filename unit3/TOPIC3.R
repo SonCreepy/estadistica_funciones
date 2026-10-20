@@ -50,11 +50,9 @@ Random_Component <- function(EA, seasonalN) {
 
 
 # Deseasonalized Series
-desestM <- uk / estM
-desestM
-# Graph of the Deseasonalized Series
-plot ( uk )
-lines ( desestM , col =4)
+Deseasonalize <- function(uk, seasonalN) { #To graph it, plot(uk), lines (DeseasonalizedN, col=4)
+  DeseasonalizedN <- uk/seasonalN
+}
 
 # ###############################################
 # Calculate a linear regression of the deseasonalized # ###############################################
