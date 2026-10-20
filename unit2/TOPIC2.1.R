@@ -414,3 +414,12 @@ mom_ord2 <- function(data_x, data_y, joint_freqs, r, s, a,b) {
 
 #Regression lines: y = y_mean + (Cov(x,y)/s2n(x) * (x-x_mean)
 #Regression lines: x = x_mean + (Cov(x,y)/s2n(Y) * (y-y_mean)
+
+#r^2 = b*b'
+#b = r * sn(Y)/sn(X)
+#b`= r*sn(X)/sn(Y)
+
+#0<r<1 direct linear correlation
+#-1<=r<0 inverse linear correlation
+#r=1 or r=-1 perfect linear correlation
+
