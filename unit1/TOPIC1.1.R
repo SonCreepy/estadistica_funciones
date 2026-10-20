@@ -239,11 +239,15 @@ pearson_skewness_coefficient <- function(data) {
   absolute_freqs <- absolute_frequency(data)
   (mean(data) - mode_value(as.numeric(names(absolute_freqs)), absolute_freqs)) / standard_deviation(data)
 }
-# Pearson coefficient is standar deviation / abs(mean)
+# If > 0, positive skew, if = 0 symmetric, if < 0 negative skew
+
+#Symmetry means that Mean=Median=Mode
+
 ##FISHER SKEWNESS COEFFICIENT--------------------------------------------------
 fisher_skewness_coefficient <- function(data) {
   central_moment(data, 3) / standard_deviation(data)^3
 }
+# If > 0, positive skew, if = 0 symmetric, if < 0 negative skew
 ##FISHER KURTOSIS COEFFICIENT-----------------------------------------------
 fisher_kurtosis_coefficient <- function(data) {
   central_moment(data, 4) / standard_deviation(data)^4 - 3
