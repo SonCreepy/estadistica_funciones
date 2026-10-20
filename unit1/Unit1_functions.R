@@ -64,7 +64,6 @@ quadratic_mean_grouped <- function(values, frequencies) {
 mode_value <- function(values, freqs) {
   values[freqs == max(freqs)]
 }
-marginal_absolute_frequency_x
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, freqs) {
   # Ordenar por valor
@@ -88,11 +87,7 @@ median_valueU <- function(data) {
   quantile(data, 0.5)
 }
 ##QUANTILE & PERCENTILE ----------------------------------------------------
-data <- c(2, 5, 3, 4, 7, 0, 11, 2, 3, 8)
-
 quartiles <- quantile(data, probs = c(0.25, 0.50, 0.75))
-print("quartiles:")
-print(quartiles)
 percentile <- function(data, percentile_number) {
   quantile(data, percentile_number / 100)
 }
@@ -101,7 +96,7 @@ deviation <- function(value, parameter) {
   abs(value - parameter)
 }
 ##MEAN DEVIATION CONCERNING AVERAGE --------------------------------------------
-mean_deviation_average <- function(data, parameter) {
+mean_deviation <- function(data, parameter) {
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
   total <- 0
@@ -110,9 +105,21 @@ mean_deviation_average <- function(data, parameter) {
   }
   total / length(data)
 }
+mean_deviation_w_freqs <- function(values, frequencies, point) {
+  # Validate that the arrays have the same length
+  if (length(values) != length(frequencies)) {
+    stop("The values and frequencies vectors must have the same size.")
+  }
+  # Calculate the sum of the absolute deviations weighted by frequency
+  sum_deviations <- sum(abs(values - point) * frequencies)
+  # Calculate the total number of observations (N)
+  n_total <- sum(frequencies)
+  # Return the mean deviation
+  (sum_deviations / n_total)
+}
 ##MEAN DEVIATION---------------------------------------------------------------
-mean_deviation <- function(data) {
-  mean_deviation_average(data, unname(mean(data)))
+mean_deviation_average <- function(data) {
+  mean_deviation(data, unname(mean(data)))
 }
 ##MEAN SQUARED ERROR-----------------------------------------------------------
 mean_squared_error <- function(data, ref_point) {
