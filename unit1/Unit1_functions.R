@@ -28,7 +28,14 @@ cumulative_relative_frequency <- function(cumulative_absolute_freq, total_n) {
 }
 ##ARITHMETIC MEAN------------------------------------------------------------
 mean(data)
-
+#MEAN WITH FREQUENCIES
+arithmetic_mean <- function(data,freqs){
+  r <- 0
+  for(i in seq_along(data)){
+    r<- r + data[i]*freqs[i];
+  }
+  r
+}
 ##WEIGHTED MEAN-----------------------------------------------------------
 weighted_mean <- function(values, weights) {
   numerator <- 0
