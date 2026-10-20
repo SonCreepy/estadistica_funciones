@@ -1,10 +1,14 @@
-# Moving Averages
-xx <- c (2.6767,3.2050, 4.8714 , 4.6275 , 5.9008 ,
-5.5200 , 5.1186 , 4.9507 , 4.6612 , 6.2572)
-# Moving average of order 3
-stats :: filter (xx, c(1 , 1 , 1) / 3)
-# Moving average of order 4
-stats :: filter (xx, c(0.5 , 1 , 1 , 1 , 0.5) / 4)
+#Moving average formula
+moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, just use the stats:filter function
+  if (order == 3) {
+    w <- c(1, 1, 1) / 3
+  } else {
+    # even orders (4 and 12): centered MA with half weights at the ends
+    w <- c(0.5, rep(1, order - 1), 0.5) / order
+  }
+
+  stats::filter(x, w)
+}
 
 library ( tidyverse )
 xx <- c (178.2 , 153.2 , 185.9 , 163.6 ,
