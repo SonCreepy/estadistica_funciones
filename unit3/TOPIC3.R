@@ -1,6 +1,7 @@
 #T * E * C * A
 
 #Moving average formula
+#Works just for 3,4,12. If any other order, just use the stats:filter function
 moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, just use the stats:filter function
   if (order == 3) {
     w <- c(1, 1, 1) / 3
@@ -13,7 +14,8 @@ moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, j
 }
 
 #Time Series function
-time_series <- function(xx, start, frequency) { #Start must be a c(year,1). plot(uk) to see the spiky graph
+#Start must be a c(year,1). plot(uk) to see the spiky graph
+time_series <- function(xx, start, frequency) { 
   uk <- ts( xx , start , frequency)
   uk
 }
