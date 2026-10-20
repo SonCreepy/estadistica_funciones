@@ -10,18 +10,11 @@ moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, j
   stats::filter(x, w)
 }
 
-library ( tidyverse )
-xx <- c (178.2 , 153.2 , 185.9 , 163.6 ,
-196.3 , 156.9 , 197.9 , 166.4 ,
-197.3 , 159.7 , 202.6 , 175.6 ,
-209.5 , 169.5 , 202.4 , 179.8 ,
-200.0 , 168.6 , 216.1 , 178.5
-)
-# Reading the data
-# Indicate the frequency of the seasonal component
-uk <- ts( xx , start = c(1980 , 1) , frequency = 4)
-uk
-plot ( uk )
+#Time Series function
+time_series <- function(xx, start, frequency) { #Start must be a c(year,1). plot(uk) to see the spiky graph
+  uk <- ts( xx , start , frequency)
+  uk
+}
 
 # Trend component , using a moving average of order 4
 tend <- stats :: filter ( uk , c(.5 , 1 , 1 , 1 , .5) / 4)
