@@ -248,3 +248,4 @@ fisher_skewness_coefficient <- function(data) {
 fisher_kurtosis_coefficient <- function(data) {
   central_moment(data, 4) / standard_deviation(data)^4 - 3
 }
+# If < 0, Platykurtic (less peaked than the normal), if = 0, Mesokurtic(same peakedness), if > 0, Leptokurtic(more peaked than the normal)
