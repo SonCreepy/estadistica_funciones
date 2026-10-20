@@ -303,21 +303,19 @@ multiple_linear_fitting <- function(predictors_data, coefficients) {
 }
 
 multiple_linear_least_squares_objective_function <- function(predictors_data, data_y, coefficients) {
-  least_squares_objective_function(data_y, multiple_linear_fitting(predictors_data, coefficients))
+  least_squares_obj_funct(data_y, multiple_linear_fitting(predictors_data, coefficients))
 }
 
 normal_equations_multiple_regression <- function(predictors_data, data_y) {
-  matrix_m <- design_matrix(predictors_data)
-  vector_y <- response_vector(data_y)
-  coefficients <- solve(t(matrix_m) %*% matrix_m, t(matrix_m) %*% vector_y)
+  matrix_m <- cbind(1, predictors_data)
+  coefficients <- solve(t(matrix_m) %*% matrix_m, t(matrix_m) %*% data_y)
   names_coefficients <- paste0("a", seq_along(coefficients) - 1)
   setNames(as.numeric(coefficients), names_coefficients)
 }
 
 least_squares_solution_multiple_regression <- function(predictors_data, data_y) {
-  matrix_m <- design_matrix(predictors_data)
-  vector_y <- response_vector(data_y)
-  coefficients <- solve(t(matrix_m) %*% matrix_m) %*% t(matrix_m) %*% vector_y
+  matrix_m <- cbind(1, predictors_data)
+  coefficients <- solve(t(matrix_m) %*% matrix_m) %*% t(matrix_m) %*% data_y
   names_coefficients <- paste0("a", seq_along(coefficients) - 1)
   setNames(as.numeric(coefficients), names_coefficients)
 }
