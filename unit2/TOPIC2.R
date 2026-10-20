@@ -148,7 +148,8 @@ correlation_char <- function(joint_freqs,values_x,values_y) {
 
 correlation_coefficient <- function(joint_freqs, values_x, values_y) {
   covariance_double_entry_table(joint_freqs, values_x, values_y) /
-    sqrt(bivariate_central_moment(joint_freqs, values_x, values_y, 2, 0) * bivariate_central_moment(joint_freqs, values_x, values_y, 0, 2))
+    sqrt(bivariate_central_moment(joint_freqs, values_x, values_y, 2, 0) *
+     bivariate_central_moment(joint_freqs, values_x, values_y, 0, 2))
 }
 
 funct_dependence_x_on_y <- function(joint_freqs) {
