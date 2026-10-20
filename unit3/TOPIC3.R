@@ -26,6 +26,7 @@ time_series <- function(xx, start, frequency) { #Start must be a c(year,1). plot
 # ##############################################
 # Multiplicative Decomposition
 # ##############################################
+
 # Seasonal (E) * Random Component (A) = X/TC :
 EA <- function(uk, trend) {
   Seasonal_Random <- uk/trend
@@ -43,8 +44,10 @@ Normalized_Seasonal_Component <- function(seasonalM) { #ncol is columns of EA
 }
 
 # Random Component
-aleM <- est_aleM / estM
-aleM
+Random_Component <- function(EA, seasonalN) {
+  randomC <- EA/seasonalN
+}
+
 
 # Deseasonalized Series
 desestM <- uk / estM
