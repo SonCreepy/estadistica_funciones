@@ -378,6 +378,18 @@ hyperbolic_fitting_by_linearization <- function(data_x, data_y) {
 }
 
 
+## Below just in case simpler alternative functions, and some useful rules
+
+x_meanF <- function(row, table, N) { 
+  return(sum(row*rowSums(table))/N)
+}
+
+
+y_meanF <- function(col, table, N) {
+  return(sum(col*colSums(table))/N)
+}
+
+
 mom_ord2 <- function(data_x, data_y, joint_freqs, r, s, a,b) {
   N <- sum(joint_freqs)
   sum <- 0
@@ -391,6 +403,11 @@ mom_ord2 <- function(data_x, data_y, joint_freqs, r, s, a,b) {
   return (sum)
 }
 
-
-
 #For ordinary moments, a,b=0,0, for central moments, a,b=x_mean,y_mean
+
+
+#central moment 20 = s2n(x)
+#central moment 02 = s2n(y)
+#central moment 11 = cov(x,y)- If cov(x,y) = 0, uncorrelated
+#ordinary moment 10 = mean_x
+#ordinary moment 01 = mean_y
