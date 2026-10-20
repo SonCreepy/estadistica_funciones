@@ -16,12 +16,11 @@ time_series <- function(xx, start, frequency) { #Start must be a c(year,1). plot
   uk
 }
 
-# Trend component , using a moving average of order 4
-tend <- stats :: filter ( uk , c(.5 , 1 , 1 , 1 , .5) / 4)
-tend
-# Plot the series with the trend in red
-plot ( uk )
-lines ( tend , col = 2)
+# Trend component , to calculate do the moving average of uk in the order of frequency
+# plot (uk)
+# lines (trend, col=2)
+
+
 # ##############################################
 # Multiplicative Decomposition
 # ##############################################
