@@ -239,6 +239,7 @@ pearson_skewness_coefficient <- function(data) {
   absolute_freqs <- absolute_frequency(data)
   (mean(data) - mode_value(as.numeric(names(absolute_freqs)), absolute_freqs)) / standard_deviation(data)
 }
+# Pearson coefficient is standar deviation / abs(mean)
 ##FISHER SKEWNESS COEFFICIENT--------------------------------------------------
 fisher_skewness_coefficient <- function(data) {
   central_moment(data, 3) / standard_deviation(data)^3
