@@ -84,12 +84,12 @@ median_value <- function(values, freqs) {
 
 ##MEDIAN VALUE--------------------------------------------------------------
 median_valueU <- function(data) {
-  quantile(data, 0.5)
+  quantile(data, 0.5, type = 2)
 }
 ##QUANTILE & PERCENTILE ----------------------------------------------------
 quartiles <- quantile(data, probs = c(0.25, 0.50, 0.75))
 percentile <- function(data, percentile_number) {
-  quantile(data, percentile_number / 100)
+  quantile(data, percentile_number / 100, type = 2)
 }
 ##DEVIATION-------------------------------------------------------------------
 deviation <- function(value, parameter) {
@@ -152,7 +152,8 @@ moment_with_respect_to_point <- function(data, order, point) {
 }
 ##PEARSON SKEWNESS COEFFICIENT-----------------------------------------------
 pearson_skewness_coefficient <- function(data) {
-  (mean(data) - mode_value(data)) / standard_deviation(data)
+  absolute_freqs <- absolute_frequency(data)
+  (mean(data) - mode_value(as.numeric(names(absolute_freqs)), absolute_freqs)) / standard_deviation(data)
 }
 ##FISHER SKEWNESS COEFFICIENT--------------------------------------------------
 fisher_skewness_coefficient <- function(data) {
