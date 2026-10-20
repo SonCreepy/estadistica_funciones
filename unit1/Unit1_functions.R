@@ -64,7 +64,7 @@ quadratic_mean_grouped <- function(values, frequencies) {
 mode_value <- function(values, freqs) {
   values[freqs == max(freqs)]
 }
-
+marginal_absolute_frequency_x
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, freqs) {
   # Ordenar por valor
