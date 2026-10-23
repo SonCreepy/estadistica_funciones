@@ -2,6 +2,10 @@
   absolute_frequency <- function(data) {
   table(data)
 }
+##RELATIVE FREQUENCY-------------------------------------------------------
+relative_frequency <- function(absolute_freq, total_n) {
+  absolute_freq / total_n
+}
 ##CUMULATIVE ABSOLUTE FREQUENCY-------------------------------------------
 cumulative_absolute_frequency <- function(absolute_freqs) {
   cumulative <- numeric(length(absolute_freqs))
