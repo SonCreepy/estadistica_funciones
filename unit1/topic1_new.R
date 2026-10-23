@@ -18,11 +18,10 @@ cumulative_absolute_frequency <- function(absolute_freqs) {
   }
   cumulative
 }
-##CLASS MARK-------------------------------------------------------------------
-class_mark <- function(lower_limit, upper_limit) {
-  (lower_limit + upper_limit) / 2
-}
-##HISTOGRAM HEIGHT-------------------------------------------------------------
-histogram_height <- function(frequencies, interval_widths) {
-  frequencies / interval_widths
+arithmetic_mean <- function(values, frequencies) {
+  total <- 0
+  for (i in seq_along(values)) {
+    total <- total + values[i] * frequencies[i]
+  }
+  total / sum(frequencies)
 }
