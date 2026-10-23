@@ -28,6 +28,15 @@ arithmetic_mean <- function(values, frequencies) { # If want to use weighted mea
 ##PIE CHART AND BAR PLOT----------------------------------
 #barplot(data,main="TITLE",ylab="COLUMNS",col)
 #pie(data, main, col=c(1,2,3))
+
+##QUADRATIC MEAN GROUPED-----------------------------------------------------
 quadratic_mean <- function(data ,frequencies) {
   sqrt(sum(data^2 * frequencies) / sum(frequencies))
+}
+##MODE VALUE----------------------------------------------------------------
+mode_value <- function(values, frequencies) {
+  if (length(unique(frequencies)) == 1) {
+    return(numeric(0))
+  }
+  values[frequencies == max(frequencies)]
 }
