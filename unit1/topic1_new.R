@@ -18,10 +18,16 @@ cumulative_absolute_frequency <- function(absolute_freqs) {
   }
   cumulative
 }
-arithmetic_mean <- function(values, frequencies) {
+arithmetic_mean <- function(values, frequencies) { # If want to use weighted mean, pass frequencies as weights
   total <- 0
   for (i in seq_along(values)) {
     total <- total + values[i] * frequencies[i]
   }
   total / sum(frequencies)
+}
+##PIE CHART AND BAR PLOT----------------------------------
+#barplot(data,main="TITLE",ylab="COLUMNS",col)
+#pie(data, main, col=c(1,2,3))
+quadratic_mean <- function(data ,frequencies) {
+  sqrt(sum(data^2 * frequencies) / sum(frequencies))
 }

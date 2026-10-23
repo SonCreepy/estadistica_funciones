@@ -65,8 +65,8 @@ weighted_mean <- function(values, weights) {
 #pie(data, main, col=c(1,2,3))
 
 ##QUADRATIC MEAN-------------------------------------------------------
-quadratic_mean <- function(data) {
-  sqrt(sum(data^2) / length(data))
+quadratic_mean <- function(data ,frequencies) {
+  sqrt(sum(data^2 * frequencies) / sum(frequencies))
 }
 ##QUADRATIC MEAN GROUPED-----------------------------------------------------
 quadratic_mean_grouped <- function(values, frequencies) {
