@@ -16,6 +16,7 @@ cumulative_absolute_frequency <- function(absolute_freqs) {
   }
   cumulative
 }
+##ARITHMETIC MEAN---------------------------------------------------------
 arithmetic_mean <- function(values, frequencies) { # If want to use weighted mean, pass frequencies as weights
   total <- 0
   for (i in seq_along(values)) {
