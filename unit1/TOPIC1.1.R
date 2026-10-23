@@ -8,7 +8,7 @@ absolute_frequency <- function(data) {
   }
   names(counts) <- modalities
   counts
-}
+}   
 ##RELATIVE FREQUENCY-----------------------------------------------------
 relative_frequency <- function(absolute_freq, total_n) {
   absolute_freq / total_n
