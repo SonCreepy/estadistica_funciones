@@ -33,3 +33,21 @@ mode_value <- function(values) {
   mode_value <- as.numeric(names(freq_table)[which.max(freq_table)])
   return(mode_value)
 }
+quantile_value <- function(values, quantile) {
+  quantile(values, probs = quantile)
+}
+##MEDIAN VALUE--------------------------------------------------------------
+median_value <- function(values, frequencies) {
+  order_positions <- order(values)
+  values <- values[order_positions]
+  frequencies <- frequencies[order_positions]
+  cumulative <- cumulative_absolute_frequency(frequencies)
+  total_n <- sum(frequencies)
+  lower <- values[which(cumulative >= floor((total_n + 1) / 2))[1]]
+  upper <- values[which(cumulative >= ceiling((total_n + 1) / 2))[1]]
+  (lower + upper) / 2
+}
+##MEDIAN VALUE--------------------------------------------------------------
+median_valueU <- function(data) {
+  quantile_value(data, 0.5)
+}

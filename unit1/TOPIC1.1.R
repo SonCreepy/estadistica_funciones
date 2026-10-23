@@ -7,7 +7,7 @@ absolute_frequency <- function(data) {
     counts[i] <- sum(data == modalities[i])
   }
   names(counts) <- modalities
-  counts
+  counts  
 }   
 ##RELATIVE FREQUENCY-----------------------------------------------------
 relative_frequency <- function(absolute_freq, total_n) {
