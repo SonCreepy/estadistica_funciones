@@ -34,9 +34,8 @@ quadratic_mean <- function(data ,frequencies) {
   sqrt(sum(data^2 * frequencies) / sum(frequencies))
 }
 ##MODE VALUE----------------------------------------------------------------
-mode_value <- function(values, frequencies) {
-  if (length(unique(frequencies)) == 1) {
-    return(numeric(0))
-  }
-  values[frequencies == max(frequencies)]
+mode_value <- function(values) {
+  freq_table <- table(values)
+  mode_value <- as.numeric(names(freq_table)[which.max(freq_table)])
+  return(mode_value)
 }
