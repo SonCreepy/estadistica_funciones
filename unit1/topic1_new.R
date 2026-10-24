@@ -1,6 +1,10 @@
 ##ABSOLUTE FREQUENCY-------------------------------------------------------
-  absolute_frequency <- function(data) {
-  table(data)
+absolute_frequency <- function(data) {
+  table(factor(data, levels = unique(data[!is.na(data)])))
+}
+frequency_array <- function(data) {
+  frequencies <- absolute_frequency(data)
+  as.numeric(frequencies)
 }
 ##RELATIVE FREQUENCY-------------------------------------------------------
 relative_frequency <- function(absolute_freq, total_n) {
@@ -45,6 +49,7 @@ quantile_value <- function(values, quantile) {
 decile <- function(data, decile_number) {
   quantile_discrete(data, decile_number / 10)
 }
+# Use IQR native function 
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, frequencies) {
   order_positions <- order(values)
