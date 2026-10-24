@@ -38,8 +38,12 @@ mode_value <- function(values) {
   mode_value <- as.numeric(names(freq_table)[which.max(freq_table)])
   return(mode_value)
 }
+#QUANTILE AND DECILE -------------------------------------------------------
 quantile_value <- function(values, quantile) {
   quantile(values, probs = quantile)
+}
+decile <- function(data, decile_number) {
+  quantile_discrete(data, decile_number / 10)
 }
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, frequencies) {
