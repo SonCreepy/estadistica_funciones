@@ -62,7 +62,6 @@ marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
   names(column_totals) <- values_y
   column_totals
 }
-#---------------------------------------------------------------------
 #CONDITIONAL FREQUENCIES ---------------------------------
 conditional_absolute_frequency_x_given_y <- function(joint_freqs, values_x, values_y, value_y) {
   column_position <- which(values_y == value_y)
@@ -92,4 +91,14 @@ bivariate_moment_with_respect_to_point <- function(joint_freqs, values_x, values
     }
   }
   total
+}
+#BIVARIATE ORDINARY MOMENT ---------------------------------
+bivariate_ordinary_moment <- function(joint_freqs, values_x, values_y, order_x, order_y) {
+  bivariate_moment_with_respect_to_point(joint_freqs, values_x, values_y, order_x, order_y, 0, 0)
+}
+#BIVARIATE CENTRAL MOMENT ---------------------------------
+bivariate_central_moment <- function(joint_freqs, values_x, values_y, order_x, order_y) {
+  mean_x <- unname(weighted_mean(values_x, marginal_absolute_frequency_x(joint_freqs, values_x)))
+  mean_y <- unname(weighted_mean(values_y, marginal_absolute_frequency_y(joint_freqs, values_y)))
+  bivariate_moment_with_respect_to_point(joint_freqs, values_x, values_y, order_x, order_y, mean_x, mean_y)
 }
