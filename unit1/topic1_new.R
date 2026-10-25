@@ -102,10 +102,9 @@ pearson_coeff_variation <- function(data) {
 moment_with_respect_to_point <- function(data, order, point) {
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
-  freq <- as.numeric(absolute_freqs)
   total <- 0
   for (i in seq_along(values)) {
-    total <- total + freq[i] * (values[i] - point)^order
+    total <- total + absolute_freqs[[i]] * (values[i] - point)^order
   }
   total / length(data)
 }
