@@ -1,3 +1,6 @@
+#REPETITIONS -> If you get unique values and its frequency, this to transform into repeated values array
+rep(data,freq)
+
 ##ABSOLUTE FREQUENCY-------------------------------------------------------
 absolute_frequency <- function(data) {
   table(factor(data, levels = unique(data[!is.na(data)])))
