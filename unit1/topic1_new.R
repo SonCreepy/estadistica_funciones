@@ -116,3 +116,8 @@ ordinary_moment <- function(data, order) {
 central_moment <- function(data, order) {
   moment_with_respect_to_point(data, order, mean(data))
 }
+##PEARSON SKEWNESS COEFFICIENT-----------------------------------------------
+pearson_skewness_coefficient <- function(data) {
+  absolute_freqs <- absolute_frequency(data)
+  (mean(data) - mode_value(as.numeric(names(absolute_freqs)), absolute_freqs)) / standard_deviation(data)
+}
