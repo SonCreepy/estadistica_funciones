@@ -64,15 +64,6 @@ marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
   column_totals
 }
 
-marginal_relative_frequency_x <- function(joint_freqs, values_x) {
-  relative_frequency(marginal_absolute_frequency_x(joint_freqs, values_x),sum(joint_freqs))
-}
-
-marginal_relative_frequency_y <- function(joint_freqs, values_y) {
-  relative_frequency(marginal_absolute_frequency_y(joint_freqs, values_y),
-                     sum(joint_freqs))
-}
-
 conditional_absolute_frequency_x_given_y <- function(joint_freqs, values_x, values_y, value_y) {
   column_position <- which(values_y == value_y)
   conditional <- numeric(length(values_x))
