@@ -45,6 +45,7 @@ scatter_plot <- function(data_x, data_y) {
        ylab = "Y",
        main = "Scatter plot")
 }
+#MARGINAL ABSOLUTE FREQUENCIES ---------------------------------
 marginal_absolute_frequency_x <- function(joint_freqs, values_x) {
   row_totals <- numeric(nrow(joint_freqs))
   for (i in seq_len(nrow(joint_freqs))) {
@@ -61,3 +62,5 @@ marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
   names(column_totals) <- values_y
   column_totals
 }
+#---------------------------------------------------------------------
+#---------------------------------------------------------------------
