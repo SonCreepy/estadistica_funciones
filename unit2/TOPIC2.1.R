@@ -423,3 +423,24 @@ mom_ord2 <- function(data_x, data_y, joint_freqs, r, s, a,b) {
 #-1<=r<0 inverse linear correlation
 #r=1 or r=-1 perfect linear correlation
 
+
+#mY <- regression_slope_y_on_x(data_x,data_y)
+#iY <- regression_intercept_y_on_x(data_x,data_y)
+#cat("y =",mY,"x +",iY)
+
+#mX <- regression_slope_x_on_y(data_x,data_y)
+#iX <- regression_intercept_x_on_y(data_x,data_y)
+#cat("x =",mX,"y +",iX)
+
+#plot(x,y,pch=21,bg='lightblue')
+#abline(iY,mY,col='red')
+#rmX <- 1/mX
+#riX <- -iX/mX
+#abline(riX,rmX,col='blue')
+
+#x_corte <- (riX - iY) / (mY - rmX)
+#y_corte <- iY + mY * x_corte
+
+#c <- center_of_gravity(t,x,y)
+#c
+#cat(x_corte,y_corte)
