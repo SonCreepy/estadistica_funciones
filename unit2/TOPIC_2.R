@@ -12,3 +12,7 @@ joint_absolute_frequency <- function(data_x, data_y) {
   colnames(counts) <- y_modalities
   counts
 }
+# JOINT RELATIVE FREQUENCY ---------------------------------
+joint_relative_frequency <- function(data_x, data_y) {
+  joint_absolute_frequency(data_x, data_y) / length(data_x)
+}

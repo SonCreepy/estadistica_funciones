@@ -14,7 +14,7 @@ joint_absolute_frequency <- function(data_x, data_y) {
 }
 
 joint_relative_frequency <- function(data_x, data_y) {
-  relative_frequency(joint_absolute_frequency(data_x, data_y), length(data_x))
+  joint_absolute_frequency(data_x, data_y) / length(data_x)
 }
 
 scatter_plot <- function(data_x, data_y) {
