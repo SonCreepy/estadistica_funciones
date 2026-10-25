@@ -1,5 +1,10 @@
-#IF FULL TABLE AS INPUT USE:
-rep(data_x,rowsum(joint_absolute_frequency(data_x, data_y)))
+#IF FULL TABLE AS INPUT, FOR REGRESSION LINES, USE:
+expand_frequency_table <- function(joint_freqs, values_x, values_y) {
+  idx <- which(joint_freqs > 0, arr.ind = TRUE)   # celdas con al menos un caso
+  reps <- joint_freqs[idx]                        # cuántas veces se repite cada par
+  list(x = rep(values_x[idx[, 1]], reps),
+       y = rep(values_y[idx[, 2]], reps))
+}
 #JOINT ABSOLUTE FREQUENCY ---------------------------------
 joint_absolute_frequency <- function(data_x, data_y) {
   x_modalities <- sort(unique(data_x))
