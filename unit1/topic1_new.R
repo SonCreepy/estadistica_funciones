@@ -52,6 +52,9 @@ quantile_value <- function(values, quantile) {
 decile <- function(data, decile_number) {
   quantile_discrete(data, decile_number / 10)
 }
+percentile <- function(data, percentile_number) {
+  quantile_discrete(data, percentile_number / 100)
+}
 # Use IQR native function 
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, frequencies) {
