@@ -14,7 +14,7 @@ moving_avg <- function(x, order) {
 #Time Series function
 #Start must be a c(year,1). plot(uk) to see the spiky graph
 time_series <- function(xx, start, frequency) { 
-  uk <- ts( xx , start , frequency)
+  uk <- ts( xx , start = start ,frequency =frequency)
   uk
 }
 
