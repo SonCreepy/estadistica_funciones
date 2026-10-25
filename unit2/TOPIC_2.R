@@ -45,3 +45,19 @@ scatter_plot <- function(data_x, data_y) {
        ylab = "Y",
        main = "Scatter plot")
 }
+marginal_absolute_frequency_x <- function(joint_freqs, values_x) {
+  row_totals <- numeric(nrow(joint_freqs))
+  for (i in seq_len(nrow(joint_freqs))) {
+    row_totals[i] <- sum(joint_freqs[i, ])
+  }
+  names(row_totals) <- values_x
+  row_totals
+}
+marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
+  column_totals <- numeric(ncol(joint_freqs))
+  for (j in seq_len(ncol(joint_freqs))) {
+    column_totals[j] <- sum(joint_freqs[, j])
+  }
+  names(column_totals) <- values_y
+  column_totals
+}
