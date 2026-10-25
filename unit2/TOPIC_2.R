@@ -1,5 +1,5 @@
 #IF FULL TABLE AS INPUT USE:
-rep(data_x,rowsum(joint_absolute_frequency(data_x, data_y))) #data_x
+rep(data_x,rowsum(joint_absolute_frequency(data_x, data_y)))
 #JOINT ABSOLUTE FREQUENCY ---------------------------------
 joint_absolute_frequency <- function(data_x, data_y) {
   x_modalities <- sort(unique(data_x))
