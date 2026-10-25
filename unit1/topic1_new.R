@@ -108,3 +108,11 @@ moment_with_respect_to_point <- function(data, order, point) {
   }
   total / length(data)
 }
+##ORDINARY MOMENT---------------------------------------------------------------
+ordinary_moment <- function(data, order) {
+  moment_with_respect_to_point(data, order, 0)
+}
+##CENTRAL MOMENT----------------------------------------------------------------
+central_moment <- function(data, order) {
+  moment_with_respect_to_point(data, order, mean(data))
+}
