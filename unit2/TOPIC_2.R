@@ -108,3 +108,7 @@ center_of_gravity <- function(joint_freqs, values_x, values_y) {
   c(x = bivariate_ordinary_moment(joint_freqs, values_x, values_y, 1, 0),
     y = bivariate_ordinary_moment(joint_freqs, values_x, values_y, 0, 1))
 }
+#COVARIANCE == BIVARIATE CENTRAL MOMENT(1,1) ---------------------------------
+covariance_double_entry_table <- function(joint_freqs, values_x, values_y) {
+  bivariate_central_moment(joint_freqs, values_x, values_y, 1, 1)
+}
