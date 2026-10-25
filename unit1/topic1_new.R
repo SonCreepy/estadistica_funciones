@@ -119,5 +119,5 @@ central_moment <- function(data, order) {
 ##PEARSON SKEWNESS COEFFICIENT-----------------------------------------------
 pearson_skewness_coefficient <- function(data) {
   absolute_freqs <- absolute_frequency(data)
-  (mean(data) - mode_value(as.numeric(names(absolute_freqs)), absolute_freqs)) / standard_deviation(data)
+  (mean(data) - mode_value(data)) / standard_deviation(data)
 }
