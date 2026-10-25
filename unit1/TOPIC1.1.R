@@ -154,24 +154,20 @@ interquartile_range <- function(data) {
 intercentile_range <- function(data) {
   percentile(data, 99) - percentile(data, 1)
 }
-##DEVIATION-------------------------------------------------------------------
-deviation <- function(value, parameter) {
-  abs(value - parameter)
-}
 ##MEAN DEVIATION CONCERNING AVERAGE --------------------------------------------
 mean_deviation_concerning_average <- function(data, parameter) {
   absolute_freqs <- absolute_frequency(data)
   values <- as.numeric(names(absolute_freqs))
   total <- 0
   for (i in seq_along(values)) {
-    total <- total + deviation(values[i], parameter) * absolute_freqs[[i]]
+    total <- total + abs(values[i]- parameter) * absolute_freqs[[i]]
   }
   total / length(data)
 }
 mean_deviation_concerning_average_grouped <- function(values, frequencies, parameter) {
   total <- 0
   for (i in seq_along(values)) {
-    total <- total + deviation(values[i], parameter) * frequencies[i]
+    total <- total + abs(values[i] - parameter) * frequencies[i]
   }
   total / sum(frequencies)
 }
