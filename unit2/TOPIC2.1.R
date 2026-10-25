@@ -76,7 +76,7 @@ conditional_absolute_frequency_x_given_y <- function(joint_freqs, values_x, valu
 
 conditional_relative_frequency_x_given_y <- function(joint_freqs, values_x, values_y, value_y) {
   conditional <- conditional_absolute_frequency_x_given_y(joint_freqs, values_x, values_y, value_y)
-  relative_frequency(conditional, sum(conditional))
+  conditional / sum(conditional)
 }
 
 conditional_absolute_frequency_y_given_x <- function(joint_freqs, values_x, values_y, value_x) {
@@ -91,7 +91,7 @@ conditional_absolute_frequency_y_given_x <- function(joint_freqs, values_x, valu
 
 conditional_relative_frequency_y_given_x <- function(joint_freqs, values_x, values_y, value_x) {
   conditional <- conditional_absolute_frequency_y_given_x(joint_freqs, values_x, values_y, value_x)
-  relative_frequency(conditional, sum(conditional))
+  conditional/ sum(conditional)
 }
 
 bivariate_moment_with_respect_to_point <- function(joint_freqs, values_x, values_y, order_x, order_y, point_x, point_y) {
