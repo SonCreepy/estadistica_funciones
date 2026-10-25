@@ -298,7 +298,7 @@ normal_equations_regression_line_x_on_y <- function(data_x, data_y) {
 }
 
 regression_slope_y_on_x <- function(data_x, data_y) {
-  covariance_double_entry_table(joint_frequency(data_x, data_y), data_x, data_y) / variance(data_x)
+  covariance_double_entry_table(joint_absolute_frequency(data_x, data_y), data_x, data_y) / variance(data_x)
 }
 
 regression_intercept_y_on_x <- function(data_x, data_y) {
@@ -306,7 +306,7 @@ regression_intercept_y_on_x <- function(data_x, data_y) {
 }
 
 regression_slope_x_on_y <- function(data_x, data_y) {
-  covariance_double_entry_table(joint_frequency(data_x, data_y), data_x, data_y) / variance(data_y)
+  covariance_double_entry_table(joint_absolute_frequency(data_x, data_y), data_x, data_y) / variance(data_y)
 }
 
 regression_intercept_x_on_y <- function(data_x, data_y) {
@@ -314,15 +314,15 @@ regression_intercept_x_on_y <- function(data_x, data_y) {
 }
 
 regression_line_y_on_x <- function(data_x, data_y, x) {
-  unname(mean(data_y)) + covariance_double_entry_table(joint_frequency(data_x, data_y), data_x, data_y) / variance(data_x) * (x - unname(mean(data_x)))
+  unname(mean(data_y)) + covariance_double_entry_table(joint_absolute_frequency(data_x, data_y), data_x, data_y) / variance(data_x) * (x - unname(mean(data_x)))
 }
 
 regression_line_x_on_y <- function(data_x, data_y, y) {
-  unname(mean(data_x)) + covariance_double_entry_table(joint_frequency(data_x, data_y), data_x, data_y) / variance(data_y) * (y - unname(mean(data_y)))
+  unname(mean(data_x)) + covariance_double_entry_table(joint_absolute_frequency(data_x, data_y), data_x, data_y) / variance(data_y) * (y - unname(mean(data_y)))
 }
 
 linear_correlation_coefficient <- function(data_x, data_y) {
-  covariance_double_entry_table(joint_frequency(data_x, data_y), data_x, data_y) / (standard_deviation(data_x) * standard_deviation(data_y))
+  covariance_double_entry_table(joint_absolute_frequency(data_x, data_y), data_x, data_y) / (standard_deviation(data_x) * standard_deviation(data_y))
 }
 
 multiple_linear_fitting <- function(predictors_data, coefficients) {
