@@ -1,6 +1,4 @@
-library(tidyverse)
-#T * E * C * A
-
+#T * E * C * A -> MULTIPLICATIVE MODEL
 #Moving average formula
 #Works just for 3,4,12. If any other order, just use the stats:filter function
 moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, just use the stats:filter function
@@ -50,8 +48,6 @@ Normalized_Seasonal_Component <- function(seasonalM) { #ncol is columns of EA
 Random_Component <- function(EA, seasonalN) {
   randomC <- EA/seasonalN
 }
-
-
 # Deseasonalized Series
 Deseasonalize <- function(uk, seasonalN) { #To graph it, plot(uk), lines (DeseasonalizedN, col=4)
   DeseasonalizedN <- uk/seasonalN
