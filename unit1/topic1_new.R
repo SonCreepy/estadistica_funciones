@@ -90,11 +90,12 @@ variance <- function(data) {
 ##STANDARD DEVIATION---------------------------------------------------------
 standard_deviation <- function(data) {
   sqrt(variance(data))
-}##PEARSON COEFFICIENT OF VARIATION---------------------------------------------
+}
 ##STANDARDISED VARIABLE-------------------------------------------------------
 standardised_variable <- function(values, mean_value, standard_deviation_value) {
   (values - mean_value) / standard_deviation_value
 }
+##PEARSON COEFFICIENT OF VARIATION---------------------------------------------
 pearson_coeff_variation <- function(data) {
   standard_deviation(data) / abs(mean(data))
 }
