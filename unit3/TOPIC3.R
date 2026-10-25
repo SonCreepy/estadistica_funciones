@@ -1,14 +1,13 @@
 #T * E * C * A -> MULTIPLICATIVE MODEL
 #Moving average formula
 #Works just for 3,4,12. If any other order, just use the stats:filter function
-moving_avg <- function(x, order) { #Works just for 3,4,12. If any other order, just use the stats:filter function
+moving_avg <- function(x, order) { 
   if (order == 3) {
     w <- c(1, 1, 1) / 3
   } else {
     # even orders (4 and 12): centered MA with half weights at the ends
     w <- c(0.5, rep(1, order - 1), 0.5) / order
   }
-
   stats::filter(x, w)
 }
 
