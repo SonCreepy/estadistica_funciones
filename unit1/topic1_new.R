@@ -71,3 +71,11 @@ median_value <- function(values, frequencies) {
 median_valueU <- function(data) {
   quantile_value(data, 0.5)
 }
+#MEAN DEVIATION CONCERNING AVERAGE --------------------------------------------
+mean_deviation_concerning_average <- function(values, frequencies, parameter) {
+  total <- 0
+  for (i in seq_along(values)) {
+    total <- total + abs(values[i] - parameter) * frequencies[i]
+  }
+  total / sum(frequencies)
+}
