@@ -63,4 +63,22 @@ marginal_absolute_frequency_y <- function(joint_freqs, values_y) {
   column_totals
 }
 #---------------------------------------------------------------------
-#---------------------------------------------------------------------
+#CONDITIONAL FREQUENCIES ---------------------------------
+conditional_absolute_frequency_x_given_y <- function(joint_freqs, values_x, values_y, value_y) {
+  column_position <- which(values_y == value_y)
+  conditional <- numeric(length(values_x))
+  for (i in seq_along(values_x)) {
+    conditional[i] <- joint_freqs[i, column_position]
+  }
+  names(conditional) <- values_x
+  conditional
+}
+conditional_absolute_frequency_y_given_x <- function(joint_freqs, values_x, values_y, value_x) {
+  row_position <- which(values_x == value_x)
+  conditional <- numeric(length(values_y))
+  for (j in seq_along(values_y)) {
+    conditional[j] <- joint_freqs[row_position, j]
+  }
+  names(conditional) <- values_y
+  conditional
+}
