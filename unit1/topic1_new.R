@@ -79,3 +79,7 @@ mean_deviation_concerning_average <- function(values, frequencies, parameter) {
   }
   total / sum(frequencies)
 }
+##MEAN SQUARED ERROR-----------------------------------------------------------
+mean_squared_error <- function(data, ref_point) {
+  sum((data - ref_point)^2) / length(data)
+}
