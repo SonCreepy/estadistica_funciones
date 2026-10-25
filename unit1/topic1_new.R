@@ -87,3 +87,24 @@ mean_squared_error <- function(data, ref_point) {
 variance <- function(data) {
   mean_squared_error(data, mean(data))
 }
+##STANDARD DEVIATION---------------------------------------------------------
+standard_deviation <- function(data) {
+  sqrt(variance(data))
+}##PEARSON COEFFICIENT OF VARIATION---------------------------------------------
+##STANDARDISED VARIABLE-------------------------------------------------------
+standardised_variable <- function(values, mean_value, standard_deviation_value) {
+  (values - mean_value) / standard_deviation_value
+}
+pearson_coeff_variation <- function(data) {
+  standard_deviation(data) / abs(mean(data))
+}
+##MOMENT RESPECT TO POINT-------------------------------------------------------
+moment_with_respect_to_point <- function(data, order, point) {
+  absolute_freqs <- absolute_frequency(data)
+  values <- as.numeric(names(absolute_freqs))
+  total <- 0
+  for (i in seq_along(values)) {
+    total <- total + absolute_freqs[[i]] * (values[i] - point)^order
+  }
+  total / length(data)
+}
