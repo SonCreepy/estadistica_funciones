@@ -47,7 +47,7 @@ mode_value <- function(values) {
 }
 #QUANTILE AND DECILE -------------------------------------------------------
 quantile_value <- function(values, quantile) {
-  quantile(values, probs = quantile)
+  quantile(values, probs = quantile,type=2)
 }
 decile <- function(data, decile_number) {
   quantile_discrete(data, decile_number / 10)
@@ -55,7 +55,11 @@ decile <- function(data, decile_number) {
 percentile <- function(data, percentile_number) {
   quantile_discrete(data, percentile_number / 100)
 }
-# Use IQR native function 
+# Use IQR native function only if you use it with type = 2, if not Q3 - Q1  /  D9 - D1
+# upper and lower limits [ LOWER <- C1 - 1.5*IQR] / [UPPER <- C3 + 1.5IQR]
+
+outliers <- data [ data < lower  |  data > upper ]
+
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, frequencies) {
   order_positions <- order(values)
@@ -121,6 +125,7 @@ central_moment <- function(data, order) {
 pearson_skewness_coefficient <- function(data) {
   (mean(data) - mode_value(data)) / standard_deviation(data)
 }
+<<<<<<< HEAD
 fisher_skewness_coefficient <- function(data) {
   central_moment(data, 3) / standard_deviation(data)^3
 }
@@ -130,3 +135,5 @@ fisher_kurtosis_coefficient <- function(data) {
   central_moment(data, 4) / standard_deviation(data)^4 - 3
 }
 # I
+=======
+>>>>>>> 2ea63a8ffe3d4920824118ab5643043a6e5c3ba8
