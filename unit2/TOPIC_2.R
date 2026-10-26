@@ -119,6 +119,17 @@ center_of_gravity <- function(joint_freqs, values_x, values_y) {
 covariance_double_entry_table <- function(joint_freqs, values_x, values_y) {
   bivariate_central_moment(joint_freqs, values_x, values_y, 1, 1)
 }
+#COVARIANCE == BIVARIATE CENTRAL MOMENT(1,1) Used in regression ---------------------------------
+covariance_simple_table <- function(values_x, values_y, frequencies = rep(1, length(values_x))) {
+  mean_x <- weighted_mean(values_x, frequencies)
+  mean_y <- weighted_mean(values_y, frequencies)
+  total <- 0
+  for (i in seq_along(values_x)) {
+    total <- total + (values_x[i] - mean_x) * (values_y[i] - mean_y) * frequencies[i]
+  }
+  total / sum(frequencies)
+}
+#INDEPENDENCE CHECK
 independence_char <- function(joint_freqs, values_x, values_y) {
   joint_relative_freqs <- joint_freqs/sum(joint_freqs)
   marginal_x <- marginal_absolute_frequency_x(joint_freqs, values_x)/length(values_x)
