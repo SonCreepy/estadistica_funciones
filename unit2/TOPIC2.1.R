@@ -204,10 +204,6 @@ regression_mean_squared_error <- function(data_y, estimated_y) {
   sum_of_squared_errors(data_y, estimated_y) / length(data_y)
 }
 
-residual_vector <- function(data_y, estimated_y) {
-  data_y - estimated_y
-}
-
 variance_explained <- function(data_y, estimated_y) {
   coefficient_of_determination(data_y, estimated_y) * variance(data_y)
 }

@@ -121,8 +121,8 @@ covariance_double_entry_table <- function(joint_freqs, values_x, values_y) {
 }
 #COVARIANCE == BIVARIATE CENTRAL MOMENT(1,1) Used in regression ---------------------------------
 covariance_simple_table <- function(values_x, values_y, frequencies = rep(1, length(values_x))) {
-  mean_x <- arithmetic:(values_x, frequencies)
-  mean_y <- arithmetic:(values_y, frequencies)
+  mean_x <- arithmetic_mean(values_x, frequencies)
+  mean_y <- arithmetic_mean(values_y, frequencies)
   total <- 0
   for (i in seq_along(values_x)) {
     total <- total + (values_x[i] - mean_x) * (values_y[i] - mean_y) * frequencies[i]
@@ -148,7 +148,6 @@ independence_char <- function(joint_freqs, values_x, values_y) {
 uncorrelated_char <- function(joint_freqs, values_x, values_y) {
   abs(covariance_double_entry_table(joint_freqs, values_x, values_y)) < 1e-10
 }
-
 #CORRELATION COEFFICIENT
 correlation_coefficient <- function(joint_freqs, values_x, values_y) {
   covariance_double_entry_table(joint_freqs, values_x, values_y) /
