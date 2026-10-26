@@ -174,6 +174,14 @@ funct_dependence_y_on_x <- function(joint_freqs) {
   TRUE
 }
 
+sum_of_squared_errors <- function(data_y, estimated_y) {
+  errors <- residual_vector(data_y, estimated_y)
+  total <- 0
+  for (i in seq_along(errors)) {
+    total <- total + errors[i]^2
+  }
+  total
+}
 
 
 
