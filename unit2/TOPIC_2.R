@@ -105,8 +105,8 @@ bivariate_ordinary_moment <- function(joint_freqs, values_x, values_y, order_x, 
 }
 #BIVARIATE CENTRAL MOMENT ---------------------------------
 bivariate_central_moment <- function(joint_freqs, values_x, values_y, order_x, order_y) {
-  mean_x <- unname(weighted_mean(values_x, marginal_absolute_frequency_x(joint_freqs, values_x)))
-  mean_y <- unname(weighted_mean(values_y, marginal_absolute_frequency_y(joint_freqs, values_y)))
+  mean_x <- unname(arithmetic_mean(values_x, marginal_absolute_frequency_x(joint_freqs, values_x)))
+  mean_y <- unname(arithmetic_mean(values_y, marginal_absolute_frequency_y(joint_freqs, values_y)))
   bivariate_moment_with_respect_to_point(joint_freqs, values_x, values_y, order_x, order_y, mean_x, mean_y)
 }
 #CENTER OF GRAVITY ---------------------------------
@@ -121,8 +121,8 @@ covariance_double_entry_table <- function(joint_freqs, values_x, values_y) {
 }
 #COVARIANCE == BIVARIATE CENTRAL MOMENT(1,1) Used in regression ---------------------------------
 covariance_simple_table <- function(values_x, values_y, frequencies = rep(1, length(values_x))) {
-  mean_x <- weighted_mean(values_x, frequencies)
-  mean_y <- weighted_mean(values_y, frequencies)
+  mean_x <- arithmetic:(values_x, frequencies)
+  mean_y <- arithmetic:(values_y, frequencies)
   total <- 0
   for (i in seq_along(values_x)) {
     total <- total + (values_x[i] - mean_x) * (values_y[i] - mean_y) * frequencies[i]
