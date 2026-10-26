@@ -185,7 +185,10 @@ fit_model <- function(x, y, model = c("linear", "exponential", "hyperbolic", "po
     power       = sprintf("y = %.5g * x^%.5g", a, b),
     ab          = sprintf("y = %.5g * %.5g^x", a, b),
     logarithmic = sprintf("y = %.5g %s %.5g ln(x)", a, sg(b), abs(b)))
-  g <- goodness_of_fit(y, f(x), w)
+  g <- coefficient_of_determination_alternative_form (y, f(x), w)
   c(list(model = model, a = a, b = b, formula = formula_txt, f = f, yest = f(x)),
     g[c("MSE", "RMSE", "SSE", "R2", "Vex", "residuals")])
+}
+coefficient_of_determination_alternative_form <- function(data_y, estimated_y, weights = NULL) {
+  variance_explained(data_y, estimated_y, weights) / variance(data_y, weights)
 }
