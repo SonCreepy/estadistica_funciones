@@ -188,10 +188,8 @@ coefficient_of_determination <- function(data_y, estimated_y) {
 mean_squared_error <- function(data_y, estimated_y) {
   sum_of_squared_errors(data_y, estimated_y) / length(data_y)
 }
-
-
-
-
+#FULL REGRESSION FUNCTION ---------------------------------
+#PLOT_REGRESSION: Plots the regression line for a given model type and returns coefficients, equation, and R².
 plot_regression <- function(x, y,
                             type = c("linear", "log", "exp", "ab", "quad", "pow"),
                             C = NULL) {
