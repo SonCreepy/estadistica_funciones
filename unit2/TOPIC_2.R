@@ -175,7 +175,7 @@ funct_dependence_y_on_x <- function(joint_freqs) {
 }
 
 sum_of_squared_errors <- function(data_y, estimated_y) {
-  errors <- residual_vector(data_y, estimated_y)
+  errors <- data_y - estimated_y
   total <- 0
   for (i in seq_along(errors)) {
     total <- total + errors[i]^2
@@ -183,16 +183,12 @@ sum_of_squared_errors <- function(data_y, estimated_y) {
   total
 }
 
-
-
-
-
-
-
-
-
-
-
+coefficient_of_determination <- function(data_y, estimated_y) {
+  1 - regression_mean_squared_error(data_y, estimated_y) / variance(data_y)
+}
+regression_mean_squared_error <- function(data_y, estimated_y) {
+  sum_of_squared_errors(data_y, estimated_y) / length(data_y)
+}
 
 # ---- fit_model ---------------------------------------------------------------
 # WHAT IT DOES: fits ONE model and returns parameters, prediction function f(x),
@@ -236,10 +232,7 @@ fit_model <- function(x, y, model = c("linear", "exponential", "hyperbolic", "po
     power       = sprintf("y = %.5g * x^%.5g", a, b),
     ab          = sprintf("y = %.5g * %.5g^x", a, b),
     logarithmic = sprintf("y = %.5g %s %.5g ln(x)", a, sg(b), abs(b)))
-  g <- coefficient_of_determination_alternative_form (y, f(x), w)
+  g <- coefficient_of_determination (y, f(x))
   c(list(model = model, a = a, b = b, formula = formula_txt, f = f, yest = f(x)),
     g[c("MSE", "RMSE", "SSE", "R2", "Vex", "residuals")])
-}
-coefficient_of_determination_alternative_form <- function(data_y, estimated_y, weights = NULL) {
-  variance_explained(data_y, estimated_y, weights) / variance(data_y, weights)
 }
