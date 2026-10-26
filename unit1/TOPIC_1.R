@@ -3,7 +3,7 @@ rep(data,freq)
 
 ##ABSOLUTE FREQUENCY-------------------------------------------------------
 absolute_frequency <- function(data) {
-  table(factor(data, levels = unique(data[!is.na(data)])))
+  table(data)
 }
 frequency_array <- function(data) {
   frequencies <- absolute_frequency(data)
@@ -32,7 +32,7 @@ arithmetic_mean <- function(values, frequencies) { # If want to use weighted mea
   total / sum(frequencies)
 }
 ##PIE CHART AND BAR PLOT----------------------------------
-#barplot(data,main="TITLE",ylab="COLUMNS",col)
+#barplot(data,main="TITLE",ylab="COLUMNS",col = 'steelblue',border = 'white')
 #pie(data, main, col=c(1,2,3))
 
 ##QUADRATIC MEAN GROUPED-----------------------------------------------------
@@ -134,4 +134,3 @@ fisher_skewness_coefficient <- function(data) {
 fisher_kurtosis_coefficient <- function(data) {
   central_moment(data, 4) / standard_deviation(data)^4 - 3
 }
-
