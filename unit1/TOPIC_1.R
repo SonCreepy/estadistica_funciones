@@ -55,7 +55,11 @@ decile <- function(data, decile_number) {
 percentile <- function(data, percentile_number) {
   quantile_discrete(data, percentile_number / 100)
 }
-# Use IQR native function 
+# Use IQR native function only if you use it with type = 2, if not Q3 - Q1  /  D9 - D1
+# upper and lower limits [ LOWER <- C1 - 1.5*IQR] / [UPPER <- C3 + 1.5IQR]
+
+outliers <- data [ data < lower  |  data > upper ]
+
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, frequencies) {
   order_positions <- order(values)
