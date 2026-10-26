@@ -185,6 +185,7 @@ sum_of_squared_errors <- function(data_y, estimated_y) {
 coefficient_of_determination <- function(data_y, estimated_y) {
   1 - mean_squared_error(data_y, estimated_y) / variance(data_y)
 }
+#MEAN SQUARED ERROR -----------------------------------------------
 mean_squared_error <- function(data_y, estimated_y) {
   sum_of_squared_errors(data_y, estimated_y) / length(data_y)
 }
