@@ -47,7 +47,7 @@ mode_value <- function(values) {
 }
 #QUANTILE AND DECILE -------------------------------------------------------
 quantile_value <- function(values, quantile) {
-  quantile(values, probs = quantile)
+  quantile(values, probs = quantile,type=2)
 }
 decile <- function(data, decile_number) {
   quantile_discrete(data, decile_number / 10)
