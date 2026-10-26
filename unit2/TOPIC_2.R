@@ -143,6 +143,12 @@ independence_char <- function(joint_freqs, values_x, values_y) {
   }
   TRUE
 }
+
+uncorrelated_char <- function(joint_freqs, values_x, values_y) {
+  abs(covariance_double_entry_table(joint_freqs, values_x, values_y)) < 1e-10
+}
+
+
 # ---- fit_model ---------------------------------------------------------------
 # WHAT IT DOES: fits ONE model and returns parameters, prediction function f(x),
 #   yest, MSE, RMSE, SSE, R2.
