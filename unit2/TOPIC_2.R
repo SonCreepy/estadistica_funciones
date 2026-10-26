@@ -173,7 +173,7 @@ funct_dependence_y_on_x <- function(joint_freqs) {
   }
   TRUE
 }
-
+#SSE (SUM OF SQUARED ERRORS) ---------------------------------
 sum_of_squared_errors <- function(data_y, estimated_y) {
   errors <- data_y - estimated_y
   total <- 0
@@ -182,11 +182,11 @@ sum_of_squared_errors <- function(data_y, estimated_y) {
   }
   total
 }
-
+#R2 (COEFFICIENT OF DETERMINATION) ---------------------------------
 coefficient_of_determination <- function(data_y, estimated_y) {
-  1 - regression_mean_squared_error(data_y, estimated_y) / variance(data_y)
+  1 - mean_squared_error(data_y, estimated_y) / variance(data_y)
 }
-regression_mean_squared_error <- function(data_y, estimated_y) {
+mean_squared_error <- function(data_y, estimated_y) {
   sum_of_squared_errors(data_y, estimated_y) / length(data_y)
 }
 
