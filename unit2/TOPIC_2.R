@@ -189,6 +189,81 @@ mean_squared_error <- function(data_y, estimated_y) {
   sum_of_squared_errors(data_y, estimated_y) / length(data_y)
 }
 
+
+
+
+plot_regression <- function(x, y,
+                            type = c("linear", "log", "exp", "ab", "quad", "pow"),
+                            C = NULL) {
+  type <- match.arg(type)
+  
+  # --- Validation ---
+  if (length(x) != length(y)) stop("x and y must have the same length.")
+  ok <- complete.cases(x, y); x <- x[ok]; y <- y[ok]
+  if (!is.null(C) && type != "quad") warning("C is only used with 'quad'; ignoring it.")
+  if (type %in% c("log", "pow") && any(x <= 0)) stop("This model requires x > 0.")
+  if (type %in% c("exp", "ab", "pow") && any(y <= 0)) stop("This model requires y > 0.")
+  
+  s <- function(v) sprintf("%+.4g", v)  # signed number for the equation
+  
+  # --- Fit each model ---
+  if (type == "linear") {                       # y = a + b·x
+    cf <- coef(lm(y ~ x)); a <- cf[[1]]; b <- cf[[2]]
+    f  <- function(t) a + b * t
+    eq <- sprintf("y = %.4g %s·x", a, s(b))
+    co <- c(a = a, b = b)
+    
+  } else if (type == "log") {                   # y = a + b·ln(x)
+    cf <- coef(lm(y ~ log(x))); a <- cf[[1]]; b <- cf[[2]]
+    f  <- function(t) a + b * log(t)
+    eq <- sprintf("y = %.4g %s·ln(x)", a, s(b))
+    co <- c(a = a, b = b)
+    
+  } else if (type == "exp") {                   # y = a·e^(b·x)
+    cf <- coef(lm(log(y) ~ x)); a <- exp(cf[[1]]); b <- cf[[2]]
+    f  <- function(t) a * exp(b * t)
+    eq <- sprintf("y = %.4g·e^(%.4g·x)", a, b)
+    co <- c(a = a, b = b)
+    
+  } else if (type == "ab") {                    # y = a·b^x
+    cf <- coef(lm(log(y) ~ x)); a <- exp(cf[[1]]); b <- exp(cf[[2]])
+    f  <- function(t) a * b^t
+    eq <- sprintf("y = %.4g·%.4g^x", a, b)
+    co <- c(a = a, b = b)
+    
+  } else if (type == "pow") {                   # y = a·x^b
+    cf <- coef(lm(log(y) ~ log(x))); a <- exp(cf[[1]]); b <- cf[[2]]
+    f  <- function(t) a * t^b
+    eq <- sprintf("y = %.4g·x^%.4g", a, b)
+    co <- c(a = a, b = b)
+    
+  } else {                                      # quad: y = a + b·x + c·x²
+    if (is.null(C)) {
+      cf <- coef(lm(y ~ x + I(x^2)))
+      a <- cf[[1]]; b <- cf[[2]]; c_ <- cf[[3]]
+    } else {
+      cf <- coef(lm(I(y - C * x^2) ~ x))        # c fixed by the user
+      a <- cf[[1]]; b <- cf[[2]]; c_ <- C
+    }
+    f  <- function(t) a + b * t + c_ * t^2
+    eq <- sprintf("y = %.4g %s·x %s·x²", a, s(b), s(c_))
+    co <- c(a = a, b = b, c = c_)
+  }
+  
+  # --- R² on the original y scale ---
+  r2 <- 1 - sum((y - f(x))^2) / sum((y - mean(y))^2)
+  
+  # --- Plot ---
+  plot(x, y, pch = 19, col = "steelblue",
+       main = paste("Regression:", type), xlab = "x", ylab = "y")
+  xs <- seq(min(x), max(x), length.out = 300)
+  lines(xs, f(xs), col = "red", lwd = 2)
+  legend("topleft", bty = "n",
+         legend = c(eq, sprintf("R² = %.4f", r2)),
+         text.col = c("red", "black"))
+  
+  invisible(list(type = type, coefficients = co, equation = eq, r2 = r2))
+}
 # ---- fit_model ---------------------------------------------------------------
 # WHAT IT DOES: fits ONE model and returns parameters, prediction function f(x),
 #   yest, MSE, RMSE, SSE, R2.
