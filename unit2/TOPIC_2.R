@@ -189,6 +189,29 @@ coefficient_of_determination <- function(data_y, estimated_y) {
 mean_squared_error <- function(data_y, estimated_y) {
   sum_of_squared_errors(data_y, estimated_y) / length(data_y)
 }
+regression_slope_y_on_x <- function(data_x, data_y) {
+  covariance_simple_table(data_x, data_y) / variance(data_x)
+}
+
+regression_intercept_y_on_x <- function(data_x, data_y) {
+  unname(mean(data_y)) - regression_slope_y_on_x(data_x, data_y) * unname(mean(data_x))
+}
+
+regression_slope_x_on_y <- function(data_x, data_y) {
+  covariance_simple_table(data_x, data_y) / variance(data_y)
+}
+
+regression_intercept_x_on_y <- function(data_x, data_y) {
+  unname(mean(data_x)) - regression_slope_x_on_y(data_x, data_y) * unname(mean(data_y))
+}
+
+regression_line_y_on_x <- function(data_x, data_y, x) {
+  unname(mean(data_y)) + covariance_simple_table(data_x, data_y) / variance(data_x) * (x - unname(mean(data_x)))
+}
+
+regression_line_x_on_y <- function(data_x, data_y, y) {
+  unname(mean(data_x)) + covariance_simple_table(data_x, data_y) / variance(data_y) * (y - unname(mean(data_y)))
+}
 #FULL REGRESSION FUNCTION ---------------------------------
 #PLOT_REGRESSION: Plots the regression line for a given model type and returns coefficients, equation, and R².
 plot_regression <- function(x, y,
