@@ -121,3 +121,12 @@ central_moment <- function(data, order) {
 pearson_skewness_coefficient <- function(data) {
   (mean(data) - mode_value(data)) / standard_deviation(data)
 }
+fisher_skewness_coefficient <- function(data) {
+  central_moment(data, 3) / standard_deviation(data)^3
+}
+# If > 0, positive skew, if = 0 symmetric, if < 0 negative skew
+##FISHER KURTOSIS COEFFICIENT-----------------------------------------------
+fisher_kurtosis_coefficient <- function(data) {
+  central_moment(data, 4) / standard_deviation(data)^4 - 3
+}
+# I
