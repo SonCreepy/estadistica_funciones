@@ -143,6 +143,49 @@ independence_char <- function(joint_freqs, values_x, values_y) {
   }
   TRUE
 }
+
+#UNCORRELATED_CHECK
+uncorrelated_char <- function(joint_freqs, values_x, values_y) {
+  abs(covariance_double_entry_table(joint_freqs, values_x, values_y)) < 1e-10
+}
+
+#CORRELATION COEFFICIENT
+correlation_coefficient <- function(joint_freqs, values_x, values_y) {
+  covariance_double_entry_table(joint_freqs, values_x, values_y) /
+    sqrt(bivariate_central_moment(joint_freqs, values_x, values_y, 2, 0) *
+           bivariate_central_moment(joint_freqs, values_x, values_y, 0, 2))
+}
+
+funct_dependence_x_on_y <- function(joint_freqs) {
+  for (j in seq_len(ncol(joint_freqs))) {
+    if (sum(joint_freqs[, j] != 0) != 1) {
+      return(FALSE)
+    }
+  }
+  TRUE
+}
+
+funct_dependence_y_on_x <- function(joint_freqs) {
+  for (i in seq_len(nrow(joint_freqs))) {
+    if (sum(joint_freqs[i, ] != 0) != 1) {
+      return(FALSE)
+    }
+  }
+  TRUE
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ---- fit_model ---------------------------------------------------------------
 # WHAT IT DOES: fits ONE model and returns parameters, prediction function f(x),
 #   yest, MSE, RMSE, SSE, R2.
