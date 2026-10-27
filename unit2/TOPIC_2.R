@@ -326,6 +326,34 @@ normal_equation <- function(x, y, z) {
   )
 }
 
+expected_frequencies <- function(joint_freqs, values_x, values_y) {
+  total_n <- sum(joint_freqs)
+  row_totals <- marginal_absolute_frequency_x(joint_freqs, values_x)
+  column_totals <- marginal_absolute_frequency_y(joint_freqs, values_y)
+  expected <- matrix(0, nrow = length(values_x), ncol = length(values_y))
+  for (i in seq_along(values_x)) {
+    for (j in seq_along(values_y)) {
+      expected[i, j] <- row_totals[[i]] * column_totals[[j]] / total_n
+    }
+  }
+  expected
+}
+
+chi_square_coefficient <- function(joint_freqs, values_x, values_y) {
+  expected <- expected_frequencies(joint_freqs, values_x, values_y)
+  total <- 0
+  for (i in seq_along(values_x)) {
+    for (j in seq_along(values_y)) {
+      total <- total + (joint_freqs[i, j] - expected[i, j])^2 / expected[i, j]
+    }
+  }
+  total
+}
+
+contingency_coefficient <- function(joint_freqs, values_x, values_y) {
+  chi_square <- chi_square_coefficient(joint_freqs, values_x, values_y)
+  sqrt(chi_square / (chi_square + sum(joint_freqs)))
+}
 
 #central moment 20 = s2n(x)
 #central moment 02 = s2n(y)
