@@ -40,6 +40,8 @@ quadratic_mean <- function(data ,frequencies) {
   sqrt(sum(data^2 * frequencies) / sum(frequencies))
 }
 ##MODE VALUE----------------------------------------------------------------
+
+#with values and freqs, use rep(value, freq) , so mode(rep(value, freq))
 mode_value <- function(values) {
   freq_table <- table(values)
   mode_value <- as.numeric(names(freq_table)[which.max(freq_table)])
