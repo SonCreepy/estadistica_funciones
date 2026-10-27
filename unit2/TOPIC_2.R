@@ -375,3 +375,21 @@ normal_equation <- function(x, y, z) {
     R2 = R2
   )
 }
+
+
+#central moment 20 = s2n(x)
+#central moment 02 = s2n(y)
+#central moment 11 = cov(x,y)- If cov(x,y) = 0, uncorrelated
+#ordinary moment 10 = mean_x
+#ordinary moment 01 = mean_y
+
+#Regression lines: y = y_mean + (Cov(x,y)/s2n(x) * (x-x_mean)
+#Regression lines: x = x_mean + (Cov(x,y)/s2n(Y) * (y-y_mean)
+
+#r^2 = b*b'
+#b = r * sn(Y)/sn(X)
+#b`= r*sn(X)/sn(Y)
+
+#0<r<1 direct linear correlation
+#-1<=r<0 inverse linear correlation
+#r=1 or r=-1 perfect linear correlation
