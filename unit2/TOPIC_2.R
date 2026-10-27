@@ -129,11 +129,11 @@ covariance_simple_table <- function(values_x, values_y, frequencies = rep(1, len
   }
   total / sum(frequencies)
 }
-#INDEPENDENCE CHECK
 independence_char <- function(joint_freqs, values_x, values_y) {
-  joint_relative_freqs <- joint_freqs/sum(joint_freqs)
-  marginal_x <- marginal_absolute_frequency_x(joint_freqs, values_x)/length(values_x)
-  marginal_y <- marginal_absolute_frequency_y(joint_freqs, values_y)/length(values_y)
+  n <- sum(joint_freqs)
+  joint_relative_freqs <- joint_freqs / n
+  marginal_x <- marginal_absolute_frequency_x(joint_freqs, values_x) / n
+  marginal_y <- marginal_absolute_frequency_y(joint_freqs, values_y) / n
   for (i in seq_along(values_x)) {
     for (j in seq_along(values_y)) {
       if (abs(joint_relative_freqs[i, j] - marginal_x[[i]] * marginal_y[[j]]) > 1e-10) {
