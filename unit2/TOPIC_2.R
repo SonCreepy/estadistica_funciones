@@ -388,7 +388,9 @@ normal_equation <- function(x, y, z) {
 
 #r^2 = b*b'
 #b = r * sn(Y)/sn(X)
+#b = Cov(x,y)/s2n(x)
 #b`= r*sn(X)/sn(Y)
+#b`= Cov(x,y)/s2n(y)
 
 #0<r<1 direct linear correlation
 #-1<=r<0 inverse linear correlation
