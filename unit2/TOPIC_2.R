@@ -332,3 +332,34 @@ fit_model <- function(x, y, model = c("linear", "exponential", "hyperbolic", "po
   c(list(model = model, a = a, b = b, formula = formula_txt, f = f, yest = f(x)),
     g[c("MSE", "RMSE", "SSE", "R2", "Vex", "residuals")])
 }
+#Function to calculate R^2, SSE, Residual Variance and obtain the regression plane 
+normal_equation <- function(x, y, z) {
+  n <- length(z)
+  
+  
+  X <- cbind(1, x, y)
+  colnames(X) <- c("intercept", "x", "y")
+  
+  
+  XtX <- t(X) %*% X
+  Xtz <- t(X) %*% z
+  
+  
+  beta <- solve(XtX, Xtz)
+  
+  
+  residuals <- z - X %*% beta
+  SSE <- sum(residuals^2)
+  s2  <- SSE / (n - 3)                
+  SST <- sum((z - mean(z))^2)
+  R2  <- 1 - SSE / SST
+  
+  list(
+    XtX = XtX,
+    Xtz = Xtz,
+    coefficients = drop(beta),
+    SSE = SSE,
+    residual_variance = s2,
+    R2 = R2
+  )
+}
