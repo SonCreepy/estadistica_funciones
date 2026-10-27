@@ -298,52 +298,7 @@ plot_regression <- function(x, y,
   
   invisible(list(type = type, coefficients = co, equation = eq, r2 = r2))
 }
-# ---- fit_model ---------------------------------------------------------------
-# WHAT IT DOES: fits ONE model and returns parameters, prediction function f(x),
-#   yest, MSE, RMSE, SSE, R2.
-# ARGUMENTS: x, y; model = "linear","exponential","hyperbolic","power","ab","logarithmic";
-#   w = frequencies (optional).
-# LINKS TO: goodness_of_fit(), compare_models(), predict_model(), fit_plot().
-# EXAMPLE (slide 103): x <- c(0,1,2,3,6); y <- c(7,5,4,3.5,3)
-#   fit <- fit_model(x, y, "exponential");  fit$a ; fit$b ; fit$MSE ; fit$R2
-fit_model <- function(x, y, model = c("linear", "exponential", "hyperbolic", "power", "ab", "logarithmic"),
-                      w = NULL) {
-  model <- match.arg(model)
-  if (is.null(w)) w <- rep(1, length(x))
-  if (model %in% c("exponential", "power", "ab") && any(y <= 0)) stop("This model requires y > 0")
-  if (model %in% c("power", "logarithmic") && any(x <= 0)) stop("This model requires x > 0")
-  if (model == "hyperbolic" && any(y == 0)) stop("The hyperbolic model requires y != 0")
-  fit <- switch(model,
-    linear      = lm(y ~ x, weights = w),
-    exponential = lm(log(y) ~ x, weights = w),
-    hyperbolic  = lm(I(1 / y) ~ x, weights = w),
-    power       = lm(log(y) ~ log(x), weights = w),
-    ab          = lm(log(y) ~ x, weights = w),
-    logarithmic = lm(y ~ log(x), weights = w))
-  A <- unname(coef(fit)[1]); B <- unname(coef(fit)[2])
-  p <- switch(model,
-    linear = c(A, B), exponential = c(exp(A), B), hyperbolic = c(A, B),
-    power = c(exp(A), B), ab = c(exp(A), exp(B)), logarithmic = c(A, B))
-  a <- p[1]; b <- p[2]
-  f <- switch(model,
-    linear      = function(t) a + b * t,
-    exponential = function(t) a * exp(b * t),
-    hyperbolic  = function(t) 1 / (a + b * t),
-    power       = function(t) a * t^b,
-    ab          = function(t) a * b^t,
-    logarithmic = function(t) a + b * log(t))
-  sg <- function(v) if (v < 0) "-" else "+"
-  formula_txt <- switch(model,
-    linear      = sprintf("y = %.5g %s %.5g x", a, sg(b), abs(b)),
-    exponential = sprintf("y = %.5g * exp(%.5g x)", a, b),
-    hyperbolic  = sprintf("y = 1 / (%.5g %s %.5g x)", a, sg(b), abs(b)),
-    power       = sprintf("y = %.5g * x^%.5g", a, b),
-    ab          = sprintf("y = %.5g * %.5g^x", a, b),
-    logarithmic = sprintf("y = %.5g %s %.5g ln(x)", a, sg(b), abs(b)))
-  g <- coefficient_of_determination (y, f(x))
-  c(list(model = model, a = a, b = b, formula = formula_txt, f = f, yest = f(x)),
-    g[c("MSE", "RMSE", "SSE", "R2", "Vex", "residuals")])
-}
+
 #Function to calculate R^2, SSE, Residual Variance and obtain the regression plane 
 normal_equation <- function(x, y, z) {
   n <- length(z)
