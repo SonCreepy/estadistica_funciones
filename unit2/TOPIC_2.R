@@ -215,7 +215,7 @@ regression_line_x_on_y <- function(data_x, data_y, y) {
 #FULL REGRESSION FUNCTION ---------------------------------
 #PLOT_REGRESSION: Plots the regression line for a given model type and returns coefficients, equation, and R².
 plot_regression <- function(x, y,
-                            type = c("linear", "log", "exp", "ab", "quad", "pow"),
+                            type = c("linear", "log", "exp", "ab", "quad", "pow", "hyper"),
                             C = NULL) {
   type <- match.arg(type)
   
@@ -224,6 +224,7 @@ plot_regression <- function(x, y,
   ok <- complete.cases(x, y); x <- x[ok]; y <- y[ok]
   if (!is.null(C) && type != "quad") warning("C is only used with 'quad'; ignoring it.")
   if (type %in% c("log", "pow") && any(x <= 0)) stop("This model requires x > 0.")
+  if (type == "hyper" && any(x == 0)) stop("This model requires x != 0.")
   if (type %in% c("exp", "ab", "pow") && any(y <= 0)) stop("This model requires y > 0.")
   
   s <- function(v) sprintf("%+.4g", v)  # signed number for the equation
@@ -259,6 +260,12 @@ plot_regression <- function(x, y,
     eq <- sprintf("y = %.4g·x^%.4g", a, b)
     co <- c(a = a, b = b)
     
+  } else if (type == "hyper") {                 # y = a + b/x
+    cf <- coef(lm(y ~ I(1 / x))); a <- cf[[1]]; b <- cf[[2]]
+    f  <- function(t) a + b / t
+    eq <- sprintf("y = %.4g %s/x", a, s(b))
+    co <- c(a = a, b = b)
+    
   } else {                                      # quad: y = a + b·x + c·x²
     if (is.null(C)) {
       cf <- coef(lm(y ~ x + I(x^2)))
@@ -279,7 +286,12 @@ plot_regression <- function(x, y,
   plot(x, y, pch = 19, col = "steelblue",
        main = paste("Regression:", type), xlab = "x", ylab = "y")
   xs <- seq(min(x), max(x), length.out = 300)
-  lines(xs, f(xs), col = "red", lwd = 2)
+  if (type == "hyper") {                        # draw each branch separately
+    lines(xs[xs < 0], f(xs[xs < 0]), col = "red", lwd = 2)
+    lines(xs[xs > 0], f(xs[xs > 0]), col = "red", lwd = 2)
+  } else {
+    lines(xs, f(xs), col = "red", lwd = 2)
+  }
   legend("topleft", bty = "n",
          legend = c(eq, sprintf("R² = %.4f", r2)),
          text.col = c("red", "black"))
