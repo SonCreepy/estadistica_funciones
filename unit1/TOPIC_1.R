@@ -1,5 +1,3 @@
-#REPETITIONS -> If you get unique values and its frequency, this to transform into repeated values array
-rep(data,freq)
 
 ##ABSOLUTE FREQUENCY-------------------------------------------------------
 absolute_frequency <- function(data) {
@@ -49,18 +47,18 @@ mode_value <- function(values) {
 }
 #QUANTILE AND DECILE -------------------------------------------------------
 quantile_value <- function(values, quantile) {
-  quantile(values, probs = quantile,type=2)
+  quantile(values, probs = quantile, type = 2)
 }
+
 decile <- function(data, decile_number) {
-  quantile_discrete(data, decile_number / 10)
+  quantile_value(data, decile_number / 10)
 }
+
 percentile <- function(data, percentile_number) {
-  quantile_discrete(data, percentile_number / 100)
+  quantile_value(data, percentile_number / 100)
 }
 # Use IQR native function only if you use it with type = 2, if not Q3 - Q1  /  D9 - D1
 # upper and lower limits [ LOWER <- C1 - 1.5*IQR] / [UPPER <- C3 + 1.5IQR]
-
-outliers <- data [ data < lower  |  data > upper ]
 
 ##MEDIAN VALUE--------------------------------------------------------------
 median_value <- function(values, frequencies) {
